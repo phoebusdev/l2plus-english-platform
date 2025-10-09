@@ -30,15 +30,6 @@ declare module 'next-auth' {
   }
 }
 
-declare module 'next-auth/jwt' {
-  interface JWT {
-    id: string
-    role: 'student' | 'admin'
-    email: string
-    name: string
-  }
-}
-
 /**
  * Full auth config with Credentials provider (Node.js runtime only)
  * Extends the Edge-compatible base config with provider logic
@@ -89,7 +80,7 @@ export const authConfig = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id
-        token.role = user.role
+        token.role = user.role as 'student' | 'admin'
         token.email = user.email
         token.name = user.name
       }
@@ -97,10 +88,10 @@ export const authConfig = {
     },
     async session({ session, token }) {
       if (token) {
-        session.user.id = token.id
-        session.user.role = token.role
-        session.user.email = token.email
-        session.user.name = token.name
+        session.user.id = token.id as string
+        session.user.role = token.role as 'student' | 'admin'
+        session.user.email = token.email as string
+        session.user.name = token.name as string
       }
       return session
     },

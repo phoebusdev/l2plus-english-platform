@@ -10,8 +10,8 @@ export default async function PricingPage() {
   // TODO: Replace with real database fetch when connected
   const plans = mockPricingPlans
 
-  // Identify most popular plan (usually the middle-tier monthly plan)
-  const popularPlanId = plans.find(p => p.billingCycle === 'monthly' && p.classesPerMonth === 8)?.id || plans[1]?.id
+  // Identify most popular plan (usually the second plan - Standard)
+  const popularPlanId = plans[1]?.id || plans[0]?.id
 
   return (
     <div className="py-16 md:py-20 px-4 bg-gradient-to-b from-gray-50 via-white to-gray-50">
@@ -74,11 +74,6 @@ export default async function PricingPage() {
                       <span className="text-5xl font-extrabold text-secondary font-poppins">{priceDisplay}</span>
                       <span className="text-lg text-gray-500 font-inter">{billingText}</span>
                     </div>
-                    {plan.classesPerMonth && (
-                      <p className="text-sm text-gray-500 mt-2 font-inter">
-                        {plan.classesPerMonth} classes per month
-                      </p>
-                    )}
                   </div>
 
                   {/* Features */}
