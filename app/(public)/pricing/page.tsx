@@ -44,7 +44,7 @@ export default async function PricingPage() {
                 className={cn(
                   'relative flex flex-col transition-all duration-300',
                   isPopular
-                    ? 'border-2 border-primary shadow-2xl scale-105 z-10 bg-gray-800'
+                    ? 'border-2 border-primary shadow-2xl bg-gray-800'
                     : 'border-2 border-gray-700 hover:border-primary/30 hover:shadow-xl bg-gray-800'
                 )}
               >
@@ -58,7 +58,7 @@ export default async function PricingPage() {
                   </div>
                 )}
 
-                <CardHeader className={cn(isPopular ? 'pt-8' : 'pt-6', 'pb-6')}>
+                <CardHeader className="pt-6 pb-6">
                   <CardTitle className="font-poppins text-2xl font-bold text-white">
                     {plan.name}
                   </CardTitle>
