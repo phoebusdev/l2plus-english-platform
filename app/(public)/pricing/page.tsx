@@ -1,18 +1,13 @@
 import Link from 'next/link'
-import { db } from '@/lib/db'
-import { pricingPlans } from '@/lib/db/schema'
-import { eq, asc } from 'drizzle-orm'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Check } from 'lucide-react'
+import { mockPricingPlans } from '@/lib/mock/data'
 
 export default async function PricingPage() {
-  // Fetch active pricing plans from database
-  const plans = await db
-    .select()
-    .from(pricingPlans)
-    .where(eq(pricingPlans.isActive, true))
-    .orderBy(asc(pricingPlans.displayOrder))
+  // Use mock pricing plans for immediate demo
+  // TODO: Replace with real database fetch when connected
+  const plans = mockPricingPlans
 
   return (
     <div className="py-12 px-4">

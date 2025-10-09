@@ -1,13 +1,11 @@
+import { auth } from '@/lib/auth'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { getToken } from 'next-auth/jwt'
 
-export async function middleware(req: NextRequest) {
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
-
-  const isLoggedIn = !!token
-  const isAdmin = token?.role === 'admin'
-  const { nextUrl } = req
+export default auth((req) => {
+  const { nextUrl, auth } = req as NextRequest & { auth: Awaited<ReturnType<typeof auth>> }
+  const isLoggedIn = !!auth?.user
+  const isAdmin = auth?.user?.role === 'admin'
 
   // Protected student routes
   const isStudentRoute = nextUrl.pathname.startsWith('/dashboard') ||
@@ -32,7 +30,7 @@ export async function middleware(req: NextRequest) {
   }
 
   return NextResponse.next()
-}
+})
 
 // Matcher configuration
 export const config = {

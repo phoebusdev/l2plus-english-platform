@@ -1,28 +1,13 @@
 import Link from 'next/link'
-import { db } from '@/lib/db'
-import { homepageContent } from '@/lib/db/schema'
-import { eq } from 'drizzle-orm'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { CheckCircle2 } from 'lucide-react'
+import { mockHomepageContent } from '@/lib/mock/data'
 
 export default async function HomePage() {
-  // Fetch homepage content from database
-  const [content] = await db.select().from(homepageContent).where(eq(homepageContent.id, 1)).limit(1)
-
-  // Default content if database is not seeded yet
-  const defaultContent = {
-    headline: 'Master English with L2+ English',
-    subtext:
-      'Achieve fluency with expert-led classes, personalized learning paths, and real-world practice.',
-    step1Text: 'Take our free CEFR-based placement test to assess your current English level.',
-    step2Text: 'Choose a course plan that fits your goals and schedule.',
-    step3Text:
-      'Join live online classes with native speakers and start improving immediately.',
-    ctaText: 'Get Started Today',
-  }
-
-  const pageContent = content || defaultContent
+  // Use mock content for immediate demo
+  // TODO: Replace with real database fetch when connected
+  const pageContent = mockHomepageContent
 
   return (
     <div className="flex flex-col">
