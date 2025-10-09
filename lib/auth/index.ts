@@ -1,10 +1,15 @@
+/**
+ * NextAuth configuration with Node.js runtime support (API routes)
+ * This file imports Node.js-specific modules and cannot be used in Edge runtime
+ */
 import NextAuth, { type DefaultSession } from 'next-auth'
 import type { NextAuthConfig } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { db } from '@/lib/db'
-import { users, students } from '@/lib/db/schema'
+import { users } from '@/lib/db/schema'
 import { eq } from 'drizzle-orm'
 import { verifyPassword } from './password'
+import { authConfig as baseAuthConfig } from './config'
 
 // Extend the built-in session types
 declare module 'next-auth' {
@@ -34,7 +39,12 @@ declare module 'next-auth/jwt' {
   }
 }
 
+/**
+ * Full auth config with Credentials provider (Node.js runtime only)
+ * Extends the Edge-compatible base config with provider logic
+ */
 export const authConfig = {
+  ...baseAuthConfig,
   providers: [
     Credentials({
       name: 'credentials',
@@ -57,7 +67,7 @@ export const authConfig = {
           return null
         }
 
-        // Verify password
+        // Verify password (uses @node-rs/argon2 - Node.js only)
         const isValid = await verifyPassword(user.passwordHash, password)
 
         if (!isValid) {
@@ -75,6 +85,7 @@ export const authConfig = {
     }),
   ],
   callbacks: {
+    ...baseAuthConfig.callbacks,
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id
@@ -94,14 +105,6 @@ export const authConfig = {
       return session
     },
   },
-  pages: {
-    signIn: '/login',
-    error: '/login',
-  },
-  session: {
-    strategy: 'jwt', // Use JWT for Edge compatibility
-  },
-  trustHost: true,
 } satisfies NextAuthConfig
 
 export const { handlers, signIn, signOut, auth } = NextAuth(authConfig)

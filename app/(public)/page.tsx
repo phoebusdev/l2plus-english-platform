@@ -1,7 +1,20 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { CheckCircle2 } from 'lucide-react'
+import {
+  CheckCircle2,
+  Target,
+  GraduationCap,
+  Users,
+  Calendar,
+  BookOpen,
+  Video,
+  Award,
+  Clock,
+  Globe,
+  TrendingUp,
+  Sparkles
+} from 'lucide-react'
 import { mockHomepageContent } from '@/lib/mock/data'
 
 export default async function HomePage() {
@@ -11,58 +24,139 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="py-20 px-4 bg-gradient-to-b from-primary/10 to-background">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">{pageContent.headline}</h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8">{pageContent.subtext}</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/register">
-              <Button size="lg" className="w-full sm:w-auto">
+      {/* Hero Section - Modern Gradient with Depth */}
+      <section className="relative py-20 md:py-32 lg:py-40 px-4 bg-gradient-to-br from-primary via-primary to-accent text-white overflow-hidden">
+        {/* Animated background patterns */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-pulse"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent rounded-full blur-3xl translate-x-1/2 translate-y-1/2 animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-secondary rounded-full blur-2xl -translate-x-1/2 -translate-y-1/2 animate-pulse delay-500"></div>
+        </div>
+
+        <div className="container mx-auto max-w-6xl text-center relative z-10">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-white/20">
+            <Sparkles className="w-4 h-4" />
+            <span className="font-inter text-sm font-medium">CEFR-Aligned Professional English Learning</span>
+          </div>
+
+          <h1 className="font-poppins text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight tracking-tight">
+            {pageContent.headline}
+          </h1>
+          <p className="font-inter text-lg sm:text-xl md:text-2xl mb-10 max-w-3xl mx-auto leading-relaxed text-white/95">
+            {pageContent.subtext}
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+            <Link href="/register" className="w-full sm:w-auto">
+              <Button
+                size="lg"
+                className="w-full sm:w-auto bg-white text-primary hover:bg-white/95 shadow-2xl text-base md:text-lg px-8 py-6 md:py-7 rounded-xl font-semibold transition-all hover:scale-105 hover:shadow-3xl"
+              >
+                <GraduationCap className="w-5 h-5 mr-2" />
                 {pageContent.ctaText}
               </Button>
             </Link>
-            <Link href="/register">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                Take Free Pre-Test
+            <Link href="/register" className="w-full sm:w-auto">
+              <Button
+                size="lg"
+                variant="outline"
+                className="w-full sm:w-auto border-2 border-white bg-white/5 backdrop-blur-sm text-white hover:bg-white/15 text-base md:text-lg px-8 py-6 md:py-7 rounded-xl font-semibold transition-all hover:scale-105"
+              >
+                <Target className="w-5 h-5 mr-2" />
+                Take Free Placement Test
               </Button>
             </Link>
+          </div>
+
+          {/* Trust indicators */}
+          <div className="flex flex-wrap justify-center gap-8 text-white/90 font-inter text-sm">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5" />
+              <span>Native-speaking instructors</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5" />
+              <span>CEFR-aligned curriculum</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5" />
+              <span>Live online classes</span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* How It Works Section */}
-      <section className="py-16 px-4">
+      <section className="py-20 md:py-24 px-4 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card>
-              <CardHeader>
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                  <span className="text-2xl font-bold text-primary">1</span>
+          <div className="text-center mb-16">
+            <h2 className="font-poppins text-3xl md:text-5xl font-bold mb-4 text-secondary">
+              How It Works
+            </h2>
+            <p className="font-inter text-lg md:text-xl text-gray-800 max-w-2xl mx-auto">
+              Get started in three simple steps and begin your English learning journey today
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 relative">
+            {/* Connecting lines for desktop */}
+            <div className="hidden md:block absolute top-20 left-1/6 right-1/6 h-0.5 bg-gradient-to-r from-primary via-accent to-secondary opacity-20" />
+
+            {/* Step 1 */}
+            <Card className="relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-primary/30 bg-white">
+              <CardHeader className="text-center pb-6 pt-8">
+                <div className="relative w-20 h-20 mx-auto mb-6">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/70 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all" />
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    <Target className="w-10 h-10 text-white" />
+                  </div>
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center font-bold text-primary text-lg">
+                    1
+                  </div>
                 </div>
-                <CardTitle>Take Placement Test</CardTitle>
-                <CardDescription>{pageContent.step1Text}</CardDescription>
+                <CardTitle className="font-poppins text-2xl mb-3 text-secondary">Take Placement Test</CardTitle>
+                <p className="font-inter text-base leading-relaxed text-gray-700">
+                  {pageContent.step1Text}
+                </p>
               </CardHeader>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                  <span className="text-2xl font-bold text-primary">2</span>
+            {/* Step 2 */}
+            <Card className="relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-accent/30 bg-white md:-mt-0">
+              <CardHeader className="text-center pb-6 pt-8">
+                <div className="relative w-20 h-20 mx-auto mb-6">
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent to-accent/70 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all" />
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    <Award className="w-10 h-10 text-white" />
+                  </div>
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center font-bold text-accent text-lg">
+                    2
+                  </div>
                 </div>
-                <CardTitle>Choose Your Plan</CardTitle>
-                <CardDescription>{pageContent.step2Text}</CardDescription>
+                <CardTitle className="font-poppins text-2xl mb-3 text-secondary">Choose Your Plan</CardTitle>
+                <p className="font-inter text-base leading-relaxed text-gray-700">
+                  {pageContent.step2Text}
+                </p>
               </CardHeader>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                  <span className="text-2xl font-bold text-primary">3</span>
+            {/* Step 3 */}
+            <Card className="relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-secondary/30 bg-white">
+              <CardHeader className="text-center pb-6 pt-8">
+                <div className="relative w-20 h-20 mx-auto mb-6">
+                  <div className="absolute inset-0 bg-gradient-to-br from-secondary to-secondary/70 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all" />
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    <TrendingUp className="w-10 h-10 text-white" />
+                  </div>
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center font-bold text-secondary text-lg">
+                    3
+                  </div>
                 </div>
-                <CardTitle>Start Learning</CardTitle>
-                <CardDescription>{pageContent.step3Text}</CardDescription>
+                <CardTitle className="font-poppins text-2xl mb-3 text-secondary">Start Learning</CardTitle>
+                <p className="font-inter text-base leading-relaxed text-gray-700">
+                  {pageContent.step3Text}
+                </p>
               </CardHeader>
             </Card>
           </div>
@@ -70,38 +164,105 @@ export default async function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 px-4 bg-muted/50">
+      <section className="py-20 md:py-24 px-4 bg-white">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Choose L2+ English?</h2>
+          <div className="text-center mb-16">
+            <h2 className="font-poppins text-3xl md:text-5xl font-bold mb-4 text-secondary">
+              Why Choose L2+ English?
+            </h2>
+            <p className="font-inter text-lg md:text-xl text-gray-800 max-w-2xl mx-auto">
+              Experience world-class English education with our proven methodology
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
-              'CEFR-aligned curriculum (A1-C2)',
-              'Native-speaking qualified instructors',
-              'Small group classes for maximum interaction',
-              'Flexible scheduling to fit your lifestyle',
-              'Comprehensive materials and progress tracking',
-              'Live online classes via Zoom',
-            ].map((feature, i) => (
-              <div key={i} className="flex items-start gap-3">
-                <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-lg">{feature}</span>
-              </div>
-            ))}
+              { text: 'CEFR-aligned curriculum (A1-C2)', icon: Target, gradient: 'from-primary to-accent' },
+              { text: 'Native-speaking qualified instructors', icon: GraduationCap, gradient: 'from-accent to-primary' },
+              { text: 'Small group classes for maximum interaction', icon: Users, gradient: 'from-secondary to-primary' },
+              { text: 'Flexible scheduling to fit your lifestyle', icon: Calendar, gradient: 'from-primary to-secondary' },
+              { text: 'Comprehensive materials and progress tracking', icon: BookOpen, gradient: 'from-accent to-secondary' },
+              { text: 'Live online classes via Zoom', icon: Video, gradient: 'from-secondary to-accent' },
+            ].map((feature, i) => {
+              const Icon = feature.icon
+              return (
+                <div
+                  key={i}
+                  className="flex items-start gap-4 p-5 rounded-xl border-2 border-gray-100 hover:border-primary/20 hover:bg-gradient-to-br hover:from-gray-50 hover:to-white transition-all group shadow-sm hover:shadow-md"
+                >
+                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all shadow-md`}>
+                    <Icon className="w-7 h-7 text-white" />
+                  </div>
+                  <div className="flex-1 pt-2">
+                    <span className="font-inter text-lg font-semibold text-secondary leading-relaxed">{feature.text}</span>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Master English?</h2>
-          <p className="text-xl text-muted-foreground mb-8">
+      <section className="relative py-24 md:py-32 px-4 bg-gradient-to-br from-secondary via-secondary to-secondary/90 text-white overflow-hidden">
+        {/* Animated decorative elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 right-10 w-96 h-96 bg-accent rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+
+        <div className="container mx-auto max-w-4xl text-center relative z-10">
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-white/20">
+            <Globe className="w-4 h-4" />
+            <span className="font-inter text-sm font-medium">Join thousands of successful students worldwide</span>
+          </div>
+
+          <h2 className="font-poppins text-3xl sm:text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+            Ready to Master English?
+          </h2>
+          <p className="font-inter text-lg md:text-2xl mb-10 text-white/95 leading-relaxed max-w-2xl mx-auto">
             Join thousands of students improving their English with L2+ English. Start with a free
             placement test today.
           </p>
-          <Link href="/register">
-            <Button size="lg">{pageContent.ctaText}</Button>
-          </Link>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link href="/register" className="w-full sm:w-auto">
+              <Button
+                size="lg"
+                className="w-full sm:w-auto bg-primary hover:bg-primary-hover text-white shadow-2xl text-base md:text-lg px-10 py-6 md:py-7 rounded-xl font-semibold transition-all hover:scale-105 hover:shadow-3xl"
+              >
+                <Sparkles className="w-5 h-5 mr-2" />
+                {pageContent.ctaText}
+              </Button>
+            </Link>
+            <Link href="/pricing" className="w-full sm:w-auto">
+              <Button
+                size="lg"
+                variant="outline"
+                className="w-full sm:w-auto border-2 border-white bg-white/5 backdrop-blur-sm text-white hover:bg-white/15 text-base md:text-lg px-10 py-6 md:py-7 rounded-xl font-semibold transition-all"
+              >
+                View Pricing Plans
+              </Button>
+            </Link>
+          </div>
+
+          {/* Social proof */}
+          <div className="mt-12 flex flex-wrap justify-center items-center gap-8 text-white/80 font-inter text-sm">
+            <div className="flex items-center gap-2">
+              <div className="flex -space-x-2">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="w-8 h-8 rounded-full bg-white/20 border-2 border-secondary flex items-center justify-center">
+                    <Users className="w-4 h-4 text-white" />
+                  </div>
+                ))}
+              </div>
+              <span>2,500+ active students</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock className="w-5 h-5" />
+              <span>10,000+ hours of classes</span>
+            </div>
+          </div>
         </div>
       </section>
     </div>

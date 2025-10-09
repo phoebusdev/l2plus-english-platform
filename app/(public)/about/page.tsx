@@ -1,77 +1,132 @@
-import { db } from '@/lib/db'
-import { aboutUsContent } from '@/lib/db/schema'
-import { eq } from 'drizzle-orm'
 import { Card, CardContent } from '@/components/ui/card'
+import { mockAboutContent, isMockMode } from '@/lib/mock/data'
+import { Award, BookOpen, Users, Globe, Target, Sparkles } from 'lucide-react'
 
 export default async function AboutPage() {
-  // Fetch about us content from database
-  const [content] = await db.select().from(aboutUsContent).where(eq(aboutUsContent.id, 1)).limit(1)
+  // Use mock content for immediate demo
+  // TODO: Replace with real database fetch when connected
+  const content = isMockMode() ? mockAboutContent : mockAboutContent // For now, always use mock
 
-  // Default content if database is not seeded yet
-  const defaultContent = {
-    contentHtml: `
-      <h2 class="text-3xl font-bold mb-4">About L2+ English</h2>
-      <p class="mb-4">L2+ English is dedicated to helping learners achieve fluency through immersive, practical English education. Our experienced native-speaking instructors use proven methodologies to deliver engaging, results-driven lessons.</p>
-      <p class="mb-4">We specialize in CEFR-aligned curriculum, ensuring every student progresses systematically from A1 (beginner) to C2 (proficient). Our live online classes combine structured learning with real-world conversation practice.</p>
-      <h3 class="text-2xl font-semibold mb-3">Our Approach</h3>
-      <ul class="list-disc list-inside space-y-2 mb-6">
-        <li>Small group classes for maximum interaction</li>
-        <li>CEFR-based placement testing and level assignment</li>
-        <li>Native-speaking instructors with teaching qualifications</li>
-        <li>Flexible scheduling to fit your lifestyle</li>
-        <li>Comprehensive materials and progress tracking</li>
-      </ul>
-    `,
-    instructorPhotos: [
-      {
-        name: 'Sarah Johnson',
-        photoUrl: '/images/instructors/sarah.jpg',
-        bio: 'CELTA-certified instructor with 10+ years of experience teaching English to international students.',
-      },
-      {
-        name: 'Michael Chen',
-        photoUrl: '/images/instructors/michael.jpg',
-        bio: 'Specializes in business English and exam preparation (IELTS, TOEFL). MA in Applied Linguistics.',
-      },
-    ],
-  }
-
-  const pageContent = content || defaultContent
-  const instructors = (pageContent.instructorPhotos as any[]) || defaultContent.instructorPhotos
+  const instructors = content.instructorPhotos as Array<{
+    name: string
+    photoUrl: string
+    bio: string
+  }>
 
   return (
-    <div className="py-12 px-4">
-      <div className="container mx-auto max-w-4xl">
-        {/* Content Section */}
-        <div
-          className="prose prose-lg max-w-none mb-12"
-          dangerouslySetInnerHTML={{ __html: pageContent.contentHtml }}
-        />
+    <div className="flex flex-col">
+      {/* Hero Section */}
+      <section className="relative py-20 md:py-28 px-4 bg-gradient-to-br from-secondary via-secondary to-secondary/95 text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 right-10 w-96 h-96 bg-primary rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-10 left-10 w-96 h-96 bg-accent rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
 
-        {/* Instructors Section */}
-        <div>
-          <h2 className="text-3xl font-bold mb-8 text-center">Meet Our Instructors</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="container mx-auto max-w-4xl text-center relative z-10">
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-white/20">
+            <Sparkles className="w-4 h-4" />
+            <span className="font-inter text-sm font-medium">About L2+ English</span>
+          </div>
+          <h1 className="font-poppins text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+            Empowering English Learners Worldwide
+          </h1>
+          <p className="font-inter text-lg md:text-xl text-white/95 leading-relaxed max-w-2xl mx-auto">
+            We're dedicated to providing high-quality, accessible English language education through innovative online learning.
+          </p>
+        </div>
+      </section>
+
+      {/* Mission & Values */}
+      <section className="py-20 px-4 bg-gradient-to-b from-white to-gray-50">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="border-2 border-gray-200 hover:border-primary/30 transition-all hover:shadow-lg">
+              <CardContent className="pt-8 text-center">
+                <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg">
+                  <Target className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="font-poppins text-xl font-bold mb-3 text-secondary">Our Mission</h3>
+                <p className="font-inter text-gray-800 leading-relaxed">
+                  To provide world-class English education that is accessible, effective, and tailored to individual learning needs.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-gray-200 hover:border-accent/30 transition-all hover:shadow-lg">
+              <CardContent className="pt-8 text-center">
+                <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-accent to-accent/70 flex items-center justify-center shadow-lg">
+                  <Award className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="font-poppins text-xl font-bold mb-3 text-secondary">Our Approach</h3>
+                <p className="font-inter text-gray-800 leading-relaxed">
+                  CEFR-aligned curriculum delivered by native-speaking instructors in engaging, interactive online classes.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-gray-200 hover:border-secondary/30 transition-all hover:shadow-lg">
+              <CardContent className="pt-8 text-center">
+                <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-secondary to-secondary/70 flex items-center justify-center shadow-lg">
+                  <Globe className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="font-poppins text-xl font-bold mb-3 text-secondary">Our Reach</h3>
+                <p className="font-inter text-gray-800 leading-relaxed">
+                  Serving thousands of students worldwide, from beginners to advanced learners, across all time zones.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Content Section */}
+      <section className="py-20 px-4 bg-white">
+        <div className="container mx-auto max-w-4xl">
+          <div
+            className="prose prose-lg prose-headings:font-poppins prose-headings:text-secondary prose-p:font-inter prose-p:text-gray-600 prose-p:leading-relaxed prose-a:text-primary hover:prose-a:text-primary-hover prose-strong:text-secondary max-w-none"
+            dangerouslySetInnerHTML={{ __html: content.contentHtml }}
+          />
+        </div>
+      </section>
+
+      {/* Instructors Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-gray-50 to-white">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="font-poppins text-3xl md:text-5xl font-bold mb-4 text-secondary">
+              Meet Our Instructors
+            </h2>
+            <p className="font-inter text-lg md:text-xl text-gray-800 max-w-2xl mx-auto">
+              Our team of experienced, native-speaking instructors are passionate about helping you achieve your English language goals.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {instructors.map((instructor, i) => (
-              <Card key={i}>
-                <CardContent className="pt-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center flex-shrink-0">
-                      <span className="text-2xl font-bold text-muted-foreground">
-                        {instructor.name.charAt(0)}
-                      </span>
+              <Card key={i} className="border-2 border-gray-200 hover:border-primary/30 transition-all hover:shadow-xl group">
+                <CardContent className="pt-8">
+                  <div className="text-center">
+                    <div className="relative w-24 h-24 mx-auto mb-4">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent to-secondary rounded-full group-hover:scale-110 transition-transform shadow-lg" />
+                      <div className="relative w-full h-full rounded-full bg-white flex items-center justify-center m-1">
+                        <span className="text-3xl font-bold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent font-poppins">
+                          {instructor.name.charAt(0)}
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-lg mb-2">{instructor.name}</h3>
-                      <p className="text-sm text-muted-foreground">{instructor.bio}</p>
+                    <h3 className="font-poppins font-bold text-xl mb-2 text-secondary">{instructor.name}</h3>
+                    <div className="flex items-center justify-center gap-1 mb-3">
+                      <BookOpen className="w-4 h-4 text-primary" />
+                      <span className="text-sm text-primary font-semibold">Native Speaker</span>
                     </div>
+                    <p className="font-inter text-sm text-gray-800 leading-relaxed">{instructor.bio}</p>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
         </div>
-      </div>
+      </section>
     </div>
   )
 }

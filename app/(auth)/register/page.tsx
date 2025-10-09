@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { GraduationCap, UserPlus, Sparkles } from 'lucide-react'
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -61,14 +62,33 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12">
-      <Card className="w-full max-w-lg">
-        <CardHeader>
-          <CardTitle>Create Your Account</CardTitle>
-          <CardDescription>
-            Register to take your free placement test and start learning English
-          </CardDescription>
-        </CardHeader>
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-br from-gray-50 via-white to-gray-50">
+      <div className="w-full max-w-lg">
+        {/* Logo Section */}
+        <div className="text-center mb-8">
+          <Link href="/" className="inline-flex items-center gap-2 group">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all">
+              <GraduationCap className="w-7 h-7 text-white" />
+            </div>
+            <span className="font-poppins text-3xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+              L2+ English
+            </span>
+          </Link>
+        </div>
+
+        <Card className="border-2 border-gray-200 shadow-xl">
+          <CardHeader className="space-y-1 pb-6">
+            <div className="flex items-center gap-2">
+              <CardTitle className="font-poppins text-2xl font-bold text-secondary">Create Your Account</CardTitle>
+              <div className="inline-flex items-center gap-1 bg-primary/10 px-2 py-1 rounded-full">
+                <Sparkles className="w-3 h-3 text-primary" />
+                <span className="text-xs font-semibold text-primary">Free Test</span>
+              </div>
+            </div>
+            <p className="font-inter text-base text-gray-800">
+              Register to take your free placement test and start your English learning journey
+            </p>
+          </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
@@ -176,19 +196,36 @@ export default function RegisterPage() {
               </Select>
             </div>
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? 'Creating Account...' : 'Create Account'}
+            <Button
+              type="submit"
+              className="w-full bg-primary hover:bg-primary-hover font-semibold py-6 rounded-xl transition-all hover:shadow-lg"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>Creating Account...</>
+              ) : (
+                <>
+                  <UserPlus className="w-4 h-4 mr-2" />
+                  Create Account & Take Free Test
+                </>
+              )}
             </Button>
 
-            <p className="text-sm text-center text-muted-foreground">
-              Already have an account?{' '}
-              <Link href="/login" className="text-primary hover:underline">
-                Log in
+            <div className="text-center space-y-2">
+              <p className="text-sm text-gray-600 font-inter">
+                Already have an account?{' '}
+                <Link href="/login" className="text-primary hover:text-primary-hover font-semibold hover:underline">
+                  Log in
+                </Link>
+              </p>
+              <Link href="/" className="block text-sm text-gray-500 hover:text-gray-700 font-inter">
+                ← Back to home
               </Link>
-            </p>
+            </div>
           </form>
         </CardContent>
       </Card>
+      </div>
     </div>
   )
 }
