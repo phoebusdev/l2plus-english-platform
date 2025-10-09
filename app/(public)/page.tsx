@@ -25,7 +25,7 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section - Modern Gradient with Depth */}
-      <section className="relative py-20 md:py-32 lg:py-40 px-4 bg-gradient-to-br from-primary via-primary to-accent text-white overflow-hidden">
+      <section className="relative py-20 md:py-32 px-4 bg-gradient-to-br from-primary via-primary to-accent text-white overflow-hidden">
         {/* Animated background patterns */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 left-0 w-96 h-96 bg-primary/50 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-pulse"></div>
@@ -35,23 +35,23 @@ export default async function HomePage() {
 
         <div className="container mx-auto max-w-6xl text-center relative z-10">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-white/20">
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-8 border border-white/20">
             <Sparkles className="w-4 h-4" />
             <span className="font-inter text-sm font-medium">CEFR-Aligned Professional English Learning</span>
           </div>
 
-          <h1 className="font-poppins text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight tracking-tight">
+          <h1 className="font-poppins text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight tracking-tight">
             {pageContent.headline}
           </h1>
-          <p className="font-inter text-lg sm:text-xl md:text-2xl mb-10 max-w-3xl mx-auto leading-relaxed text-white/95">
+          <p className="font-inter text-lg md:text-xl mb-12 max-w-3xl mx-auto leading-relaxed text-white/95">
             {pageContent.subtext}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
             <Link href="/register" className="w-full sm:w-auto">
               <Button
                 size="lg"
-                className="w-full sm:w-auto bg-secondary text-white hover:bg-secondary-hover shadow-2xl text-base md:text-lg px-8 py-6 md:py-7 rounded-xl font-semibold transition-all hover:scale-105 hover:shadow-3xl"
+                className="w-full sm:w-auto bg-secondary text-white hover:bg-secondary-hover shadow-2xl text-base md:text-lg px-8 py-6 rounded-xl font-semibold transition-all hover:scale-105 hover:shadow-3xl"
               >
                 <GraduationCap className="w-5 h-5 mr-2" />
                 {pageContent.ctaText}
@@ -61,7 +61,7 @@ export default async function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto border-2 border-white bg-white/5 backdrop-blur-sm text-white hover:bg-white/15 text-base md:text-lg px-8 py-6 md:py-7 rounded-xl font-semibold transition-all hover:scale-105"
+                className="w-full sm:w-auto border-2 border-white bg-white/5 backdrop-blur-sm text-white hover:bg-white/15 text-base md:text-lg px-8 py-6 rounded-xl font-semibold transition-all hover:scale-105"
               >
                 <Target className="w-5 h-5 mr-2" />
                 Take Free Placement Test
@@ -70,7 +70,7 @@ export default async function HomePage() {
           </div>
 
           {/* Trust indicators */}
-          <div className="flex flex-wrap justify-center gap-8 text-white/90 font-inter text-sm">
+          <div className="flex flex-wrap justify-center gap-6 md:gap-8 text-white/90 font-inter text-sm">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5" />
               <span>Native-speaking instructors</span>
@@ -88,10 +88,10 @@ export default async function HomePage() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 md:py-24 px-4 bg-gradient-to-b from-gray-800 to-gray-900">
+      <section className="py-16 md:py-24 px-4 bg-gradient-to-b from-gray-800 to-gray-900">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="font-poppins text-3xl md:text-5xl font-bold mb-4 text-white">
+          <div className="text-center mb-12">
+            <h2 className="font-poppins text-3xl md:text-4xl font-bold mb-6 text-white">
               How It Works
             </h2>
             <p className="font-inter text-lg md:text-xl text-gray-100 max-w-2xl mx-auto">
@@ -99,13 +99,13 @@ export default async function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 relative">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
             {/* Connecting lines for desktop */}
             <div className="hidden md:block absolute top-20 left-1/6 right-1/6 h-0.5 bg-gradient-to-r from-primary via-accent to-secondary opacity-20" />
 
             {/* Step 1 */}
             <Card className="relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-gray-700 hover:border-primary/30 bg-gray-800">
-              <CardHeader className="text-center pb-6 pt-8">
+              <CardHeader className="text-center p-6">
                 <div className="relative w-20 h-20 mx-auto mb-6">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/70 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all" />
                   <div className="relative w-full h-full flex items-center justify-center">
@@ -115,7 +115,7 @@ export default async function HomePage() {
                     1
                   </div>
                 </div>
-                <CardTitle className="font-poppins text-2xl mb-3 text-white">Take Placement Test</CardTitle>
+                <CardTitle className="font-poppins text-2xl mb-4 text-white">Take Placement Test</CardTitle>
                 <p className="font-inter text-base leading-relaxed text-gray-100">
                   {pageContent.step1Text}
                 </p>
@@ -123,8 +123,8 @@ export default async function HomePage() {
             </Card>
 
             {/* Step 2 */}
-            <Card className="relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-gray-700 hover:border-accent/30 bg-gray-800 md:-mt-0">
-              <CardHeader className="text-center pb-6 pt-8">
+            <Card className="relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-gray-700 hover:border-accent/30 bg-gray-800">
+              <CardHeader className="text-center p-6">
                 <div className="relative w-20 h-20 mx-auto mb-6">
                   <div className="absolute inset-0 bg-gradient-to-br from-accent to-accent/70 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all" />
                   <div className="relative w-full h-full flex items-center justify-center">
@@ -134,7 +134,7 @@ export default async function HomePage() {
                     2
                   </div>
                 </div>
-                <CardTitle className="font-poppins text-2xl mb-3 text-white">Choose Your Plan</CardTitle>
+                <CardTitle className="font-poppins text-2xl mb-4 text-white">Choose Your Plan</CardTitle>
                 <p className="font-inter text-base leading-relaxed text-gray-100">
                   {pageContent.step2Text}
                 </p>
@@ -143,7 +143,7 @@ export default async function HomePage() {
 
             {/* Step 3 */}
             <Card className="relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-gray-700 hover:border-secondary/30 bg-gray-800">
-              <CardHeader className="text-center pb-6 pt-8">
+              <CardHeader className="text-center p-6">
                 <div className="relative w-20 h-20 mx-auto mb-6">
                   <div className="absolute inset-0 bg-gradient-to-br from-secondary to-secondary/70 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all" />
                   <div className="relative w-full h-full flex items-center justify-center">
@@ -153,7 +153,7 @@ export default async function HomePage() {
                     3
                   </div>
                 </div>
-                <CardTitle className="font-poppins text-2xl mb-3 text-white">Start Learning</CardTitle>
+                <CardTitle className="font-poppins text-2xl mb-4 text-white">Start Learning</CardTitle>
                 <p className="font-inter text-base leading-relaxed text-gray-100">
                   {pageContent.step3Text}
                 </p>
@@ -164,10 +164,10 @@ export default async function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 md:py-24 px-4 bg-gray-900">
+      <section className="py-16 md:py-24 px-4 bg-gray-900">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="font-poppins text-3xl md:text-5xl font-bold mb-4 text-white">
+          <div className="text-center mb-12">
+            <h2 className="font-poppins text-3xl md:text-4xl font-bold mb-6 text-white">
               Why Choose L2+ English?
             </h2>
             <p className="font-inter text-lg md:text-xl text-gray-100 max-w-2xl mx-auto">
@@ -188,7 +188,7 @@ export default async function HomePage() {
               return (
                 <div
                   key={i}
-                  className="flex items-start gap-4 p-5 rounded-xl border-2 border-gray-700 hover:border-primary/30 hover:bg-gradient-to-br hover:from-gray-800 hover:to-gray-900 transition-all group shadow-sm hover:shadow-md bg-gray-800"
+                  className="flex items-start gap-4 p-6 rounded-xl border-2 border-gray-700 hover:border-primary/30 hover:bg-gradient-to-br hover:from-gray-800 hover:to-gray-900 transition-all group shadow-sm hover:shadow-md bg-gray-800"
                 >
                   <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all shadow-md`}>
                     <Icon className="w-7 h-7 text-white" />
@@ -204,7 +204,7 @@ export default async function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-24 md:py-32 px-4 bg-gradient-to-br from-secondary via-secondary to-secondary/90 text-white overflow-hidden">
+      <section className="relative py-20 md:py-32 px-4 bg-gradient-to-br from-secondary via-secondary to-secondary/90 text-white overflow-hidden">
         {/* Animated decorative elements */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 right-10 w-96 h-96 bg-accent rounded-full blur-3xl animate-pulse"></div>
@@ -212,24 +212,24 @@ export default async function HomePage() {
         </div>
 
         <div className="container mx-auto max-w-4xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-white/20">
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-8 border border-white/20">
             <Globe className="w-4 h-4" />
             <span className="font-inter text-sm font-medium">Join thousands of successful students worldwide</span>
           </div>
 
-          <h2 className="font-poppins text-3xl sm:text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+          <h2 className="font-poppins text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 leading-tight">
             Ready to Master English?
           </h2>
-          <p className="font-inter text-lg md:text-2xl mb-10 text-white/95 leading-relaxed max-w-2xl mx-auto">
+          <p className="font-inter text-lg md:text-xl mb-12 text-white/95 leading-relaxed max-w-2xl mx-auto">
             Join thousands of students improving their English with L2+ English. Start with a free
             placement test today.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
             <Link href="/register" className="w-full sm:w-auto">
               <Button
                 size="lg"
-                className="w-full sm:w-auto bg-primary hover:bg-primary-hover text-white shadow-2xl text-base md:text-lg px-10 py-6 md:py-7 rounded-xl font-semibold transition-all hover:scale-105 hover:shadow-3xl"
+                className="w-full sm:w-auto bg-primary hover:bg-primary-hover text-white shadow-2xl text-base md:text-lg px-10 py-6 rounded-xl font-semibold transition-all hover:scale-105 hover:shadow-3xl"
               >
                 <Sparkles className="w-5 h-5 mr-2" />
                 {pageContent.ctaText}
@@ -239,7 +239,7 @@ export default async function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto border-2 border-white bg-white/5 backdrop-blur-sm text-white hover:bg-white/15 text-base md:text-lg px-10 py-6 md:py-7 rounded-xl font-semibold transition-all"
+                className="w-full sm:w-auto border-2 border-white bg-white/5 backdrop-blur-sm text-white hover:bg-white/15 text-base md:text-lg px-10 py-6 rounded-xl font-semibold transition-all"
               >
                 View Pricing Plans
               </Button>
@@ -247,7 +247,7 @@ export default async function HomePage() {
           </div>
 
           {/* Social proof */}
-          <div className="mt-12 flex flex-wrap justify-center items-center gap-8 text-white/80 font-inter text-sm">
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 text-white/80 font-inter text-sm">
             <div className="flex items-center gap-2">
               <div className="flex -space-x-2">
                 {[1, 2, 3, 4].map((i) => (

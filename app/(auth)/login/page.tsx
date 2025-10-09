@@ -50,7 +50,7 @@ function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-br from-gray-50 via-white to-gray-50">
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <div className="w-full max-w-md">
         {/* Logo Section */}
         <div className="text-center mb-8">
@@ -64,15 +64,15 @@ function LoginForm() {
           </Link>
         </div>
 
-        <Card className="border-2 border-gray-200 shadow-xl">
-          <CardHeader className="space-y-1 pb-6">
-            <CardTitle className="font-poppins text-2xl font-bold text-secondary">Welcome Back</CardTitle>
-            <p className="font-inter text-base text-gray-800">
+        <Card className="border-2 border-gray-700 shadow-xl bg-gray-800">
+          <CardHeader className="space-y-2 pb-6">
+            <CardTitle className="font-poppins text-2xl font-bold text-white">Welcome Back</CardTitle>
+            <p className="font-inter text-base text-gray-100">
               Log in to your L2+ English account to continue your learning journey
             </p>
           </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {registered && (
               <Alert>
                 <AlertDescription>
@@ -106,7 +106,7 @@ function LoginForm() {
                 <Label htmlFor="password">Password</Label>
                 <Link
                   href="/reset-password"
-                  className="text-sm text-primary hover:underline"
+                  className="text-sm text-primary hover:text-primary-hover hover:underline"
                   tabIndex={-1}
                 >
                   Forgot password?
@@ -139,14 +139,14 @@ function LoginForm() {
               )}
             </Button>
 
-            <div className="text-center space-y-2">
-              <p className="text-sm text-gray-600 font-inter">
+            <div className="text-center space-y-3 pt-2">
+              <p className="text-sm text-gray-300 font-inter">
                 Don't have an account?{' '}
                 <Link href="/register" className="text-primary hover:text-primary-hover font-semibold hover:underline">
                   Create account
                 </Link>
               </p>
-              <Link href="/" className="block text-sm text-gray-500 hover:text-gray-700 font-inter">
+              <Link href="/" className="block text-sm text-gray-400 hover:text-gray-200 font-inter">
                 ← Back to home
               </Link>
             </div>
