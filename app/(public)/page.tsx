@@ -28,7 +28,7 @@ export default async function HomePage() {
       <section className="relative py-20 md:py-32 lg:py-40 px-4 bg-gradient-to-br from-primary via-primary to-accent text-white overflow-hidden">
         {/* Animated background patterns */}
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-pulse"></div>
+          <div className="absolute top-0 left-0 w-96 h-96 bg-primary/50 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-pulse"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent rounded-full blur-3xl translate-x-1/2 translate-y-1/2 animate-pulse delay-1000"></div>
           <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-secondary rounded-full blur-2xl -translate-x-1/2 -translate-y-1/2 animate-pulse delay-500"></div>
         </div>
@@ -51,7 +51,7 @@ export default async function HomePage() {
             <Link href="/register" className="w-full sm:w-auto">
               <Button
                 size="lg"
-                className="w-full sm:w-auto bg-white text-primary hover:bg-white/95 shadow-2xl text-base md:text-lg px-8 py-6 md:py-7 rounded-xl font-semibold transition-all hover:scale-105 hover:shadow-3xl"
+                className="w-full sm:w-auto bg-secondary text-white hover:bg-secondary-hover shadow-2xl text-base md:text-lg px-8 py-6 md:py-7 rounded-xl font-semibold transition-all hover:scale-105 hover:shadow-3xl"
               >
                 <GraduationCap className="w-5 h-5 mr-2" />
                 {pageContent.ctaText}
@@ -88,13 +88,13 @@ export default async function HomePage() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 md:py-24 px-4 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-20 md:py-24 px-4 bg-gradient-to-b from-gray-800 to-gray-900">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="font-poppins text-3xl md:text-5xl font-bold mb-4 text-secondary">
+            <h2 className="font-poppins text-3xl md:text-5xl font-bold mb-4 text-white">
               How It Works
             </h2>
-            <p className="font-inter text-lg md:text-xl text-gray-800 max-w-2xl mx-auto">
+            <p className="font-inter text-lg md:text-xl text-gray-100 max-w-2xl mx-auto">
               Get started in three simple steps and begin your English learning journey today
             </p>
           </div>
@@ -104,57 +104,57 @@ export default async function HomePage() {
             <div className="hidden md:block absolute top-20 left-1/6 right-1/6 h-0.5 bg-gradient-to-r from-primary via-accent to-secondary opacity-20" />
 
             {/* Step 1 */}
-            <Card className="relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-primary/30 bg-white">
+            <Card className="relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-gray-700 hover:border-primary/30 bg-gray-800">
               <CardHeader className="text-center pb-6 pt-8">
                 <div className="relative w-20 h-20 mx-auto mb-6">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/70 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all" />
                   <div className="relative w-full h-full flex items-center justify-center">
                     <Target className="w-10 h-10 text-white" />
                   </div>
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center font-bold text-primary text-lg">
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-gray-900 rounded-full shadow-md flex items-center justify-center font-bold text-primary text-lg border-2 border-primary">
                     1
                   </div>
                 </div>
-                <CardTitle className="font-poppins text-2xl mb-3 text-secondary">Take Placement Test</CardTitle>
-                <p className="font-inter text-base leading-relaxed text-gray-700">
+                <CardTitle className="font-poppins text-2xl mb-3 text-white">Take Placement Test</CardTitle>
+                <p className="font-inter text-base leading-relaxed text-gray-100">
                   {pageContent.step1Text}
                 </p>
               </CardHeader>
             </Card>
 
             {/* Step 2 */}
-            <Card className="relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-accent/30 bg-white md:-mt-0">
+            <Card className="relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-gray-700 hover:border-accent/30 bg-gray-800 md:-mt-0">
               <CardHeader className="text-center pb-6 pt-8">
                 <div className="relative w-20 h-20 mx-auto mb-6">
                   <div className="absolute inset-0 bg-gradient-to-br from-accent to-accent/70 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all" />
                   <div className="relative w-full h-full flex items-center justify-center">
                     <Award className="w-10 h-10 text-white" />
                   </div>
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center font-bold text-accent text-lg">
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-gray-900 rounded-full shadow-md flex items-center justify-center font-bold text-accent text-lg border-2 border-accent">
                     2
                   </div>
                 </div>
-                <CardTitle className="font-poppins text-2xl mb-3 text-secondary">Choose Your Plan</CardTitle>
-                <p className="font-inter text-base leading-relaxed text-gray-700">
+                <CardTitle className="font-poppins text-2xl mb-3 text-white">Choose Your Plan</CardTitle>
+                <p className="font-inter text-base leading-relaxed text-gray-100">
                   {pageContent.step2Text}
                 </p>
               </CardHeader>
             </Card>
 
             {/* Step 3 */}
-            <Card className="relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-secondary/30 bg-white">
+            <Card className="relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-gray-700 hover:border-secondary/30 bg-gray-800">
               <CardHeader className="text-center pb-6 pt-8">
                 <div className="relative w-20 h-20 mx-auto mb-6">
                   <div className="absolute inset-0 bg-gradient-to-br from-secondary to-secondary/70 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all" />
                   <div className="relative w-full h-full flex items-center justify-center">
                     <TrendingUp className="w-10 h-10 text-white" />
                   </div>
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center font-bold text-secondary text-lg">
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-gray-900 rounded-full shadow-md flex items-center justify-center font-bold text-secondary text-lg border-2 border-secondary">
                     3
                   </div>
                 </div>
-                <CardTitle className="font-poppins text-2xl mb-3 text-secondary">Start Learning</CardTitle>
-                <p className="font-inter text-base leading-relaxed text-gray-700">
+                <CardTitle className="font-poppins text-2xl mb-3 text-white">Start Learning</CardTitle>
+                <p className="font-inter text-base leading-relaxed text-gray-100">
                   {pageContent.step3Text}
                 </p>
               </CardHeader>
@@ -164,13 +164,13 @@ export default async function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 md:py-24 px-4 bg-white">
+      <section className="py-20 md:py-24 px-4 bg-gray-900">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="font-poppins text-3xl md:text-5xl font-bold mb-4 text-secondary">
+            <h2 className="font-poppins text-3xl md:text-5xl font-bold mb-4 text-white">
               Why Choose L2+ English?
             </h2>
-            <p className="font-inter text-lg md:text-xl text-gray-800 max-w-2xl mx-auto">
+            <p className="font-inter text-lg md:text-xl text-gray-100 max-w-2xl mx-auto">
               Experience world-class English education with our proven methodology
             </p>
           </div>
@@ -188,13 +188,13 @@ export default async function HomePage() {
               return (
                 <div
                   key={i}
-                  className="flex items-start gap-4 p-5 rounded-xl border-2 border-gray-100 hover:border-primary/20 hover:bg-gradient-to-br hover:from-gray-50 hover:to-white transition-all group shadow-sm hover:shadow-md"
+                  className="flex items-start gap-4 p-5 rounded-xl border-2 border-gray-700 hover:border-primary/30 hover:bg-gradient-to-br hover:from-gray-800 hover:to-gray-900 transition-all group shadow-sm hover:shadow-md bg-gray-800"
                 >
                   <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all shadow-md`}>
                     <Icon className="w-7 h-7 text-white" />
                   </div>
                   <div className="flex-1 pt-2">
-                    <span className="font-inter text-lg font-semibold text-secondary leading-relaxed">{feature.text}</span>
+                    <span className="font-inter text-lg font-semibold text-white leading-relaxed">{feature.text}</span>
                   </div>
                 </div>
               )

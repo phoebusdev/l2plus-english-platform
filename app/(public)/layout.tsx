@@ -25,7 +25,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
   return (
     <div className="min-h-screen flex flex-col">
       {/* Modern Sticky Header */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+      <header className="sticky top-0 z-50 bg-gray-900/95 backdrop-blur-md border-b border-gray-700 shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
@@ -48,7 +48,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                     'font-inter px-4 py-2 rounded-lg text-sm font-semibold transition-all relative',
                     isActive(link.href)
                       ? 'text-white bg-primary shadow-md'
-                      : 'text-gray-800 hover:text-white hover:bg-primary/90'
+                      : 'text-gray-100 hover:text-white hover:bg-primary/90'
                   )}
                 >
                   {link.label}
@@ -74,20 +74,20 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="md:hidden p-2 hover:bg-gray-800 rounded-lg transition-colors"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (
-                <X className="w-6 h-6 text-gray-700" />
+                <X className="w-6 h-6 text-gray-100" />
               ) : (
-                <Menu className="w-6 h-6 text-gray-700" />
+                <Menu className="w-6 h-6 text-gray-100" />
               )}
             </button>
           </div>
 
           {/* Mobile Navigation */}
           {mobileMenuOpen && (
-            <div className="md:hidden mt-4 pb-4 border-t border-gray-200 pt-4 animate-in slide-in-from-top-2">
+            <div className="md:hidden mt-4 pb-4 border-t border-gray-700 pt-4 animate-in slide-in-from-top-2">
               <nav className="flex flex-col gap-2">
                 {navLinks.map((link) => (
                   <Link
@@ -98,7 +98,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                       'font-inter px-4 py-3 rounded-lg text-base font-semibold transition-all',
                       isActive(link.href)
                         ? 'text-white bg-primary shadow-md border-l-4 border-secondary'
-                        : 'text-gray-800 hover:text-white hover:bg-primary/90'
+                        : 'text-gray-100 hover:text-white hover:bg-primary/90'
                     )}
                   >
                     {link.label}

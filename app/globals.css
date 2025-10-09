@@ -28,17 +28,17 @@
   --color-accent-hover: 32 100% 36%;
   --color-accent-light: 32 100% 96%;
 
-  /* Background & Surface Colors */
-  --color-background: 0 0% 100%;
-  --color-foreground: 211 58% 22%;
-  --color-card: 0 0% 100%;
-  --color-card-foreground: 211 58% 22%;
-  --color-popover: 0 0% 100%;
-  --color-popover-foreground: 211 58% 22%;
+  /* Background & Surface Colors - Dark Theme Default */
+  --color-background: 222 47% 11%;
+  --color-foreground: 210 40% 98%;
+  --color-card: 217 33% 17%;
+  --color-card-foreground: 210 40% 98%;
+  --color-popover: 217 33% 17%;
+  --color-popover-foreground: 210 40% 98%;
 
-  /* Neutral Colors - Updated for better readability */
-  --color-muted: 210 40% 96.1%;
-  --color-muted-foreground: 215 16% 47%;
+  /* Neutral Colors - Dark Theme */
+  --color-muted: 217 33% 17%;
+  --color-muted-foreground: 215 20% 65%;
 
   /* Gray scale for text hierarchy */
   --color-gray-50: 210 40% 98%;
@@ -62,9 +62,9 @@
   --color-info: 199 89% 48%;
   --color-info-foreground: 0 0% 100%;
 
-  /* Border & Input */
-  --color-border: 214 32% 91%;
-  --color-input: 214 32% 91%;
+  /* Border & Input - Dark Theme */
+  --color-border: 217 33% 25%;
+  --color-input: 217 33% 25%;
   --color-ring: 354 70% 54%;
 
   /* Border Radius */
@@ -75,27 +75,19 @@
   --font-inter: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   @theme {
-    --color-background: 222.2 84% 4.9%;
-    --color-foreground: 210 40% 98%;
-    --color-card: 222.2 84% 4.9%;
-    --color-card-foreground: 210 40% 98%;
-    --color-popover: 222.2 84% 4.9%;
-    --color-popover-foreground: 210 40% 98%;
-    --color-primary: 217.2 91.2% 59.8%;
-    --color-primary-foreground: 222.2 47.4% 11.2%;
-    --color-secondary: 217.2 32.6% 17.5%;
-    --color-secondary-foreground: 210 40% 98%;
-    --color-muted: 217.2 32.6% 17.5%;
-    --color-muted-foreground: 215 20.2% 65.1%;
-    --color-accent: 217.2 32.6% 17.5%;
-    --color-accent-foreground: 210 40% 98%;
-    --color-destructive: 0 62.8% 30.6%;
-    --color-destructive-foreground: 210 40% 98%;
-    --color-border: 217.2 32.6% 17.5%;
-    --color-input: 217.2 32.6% 17.5%;
-    --color-ring: 224.3 76.3% 48%;
+    /* Light Mode - Only applies if user prefers light theme */
+    --color-background: 0 0% 100%;
+    --color-foreground: 211 58% 22%;
+    --color-card: 0 0% 100%;
+    --color-card-foreground: 211 58% 22%;
+    --color-popover: 0 0% 100%;
+    --color-popover-foreground: 211 58% 22%;
+    --color-muted: 210 40% 96.1%;
+    --color-muted-foreground: 215 16% 47%;
+    --color-border: 214 32% 91%;
+    --color-input: 214 32% 91%;
   }
 }
 
