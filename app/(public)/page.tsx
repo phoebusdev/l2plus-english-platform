@@ -51,7 +51,7 @@ export default async function HomePage() {
             <Link href="/register" className="w-full sm:w-auto">
               <Button
                 size="lg"
-                className="w-full sm:w-auto bg-secondary text-white hover:bg-secondary-hover shadow-2xl text-base md:text-lg px-8 py-6 rounded-xl font-semibold transition-all hover:scale-105 hover:shadow-3xl"
+                className="w-full sm:w-auto bg-secondary text-white hover:bg-secondary-hover shadow-button hover:shadow-button-hover text-base md:text-lg px-8 py-6 rounded-xl font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ring-1 ring-white/10"
               >
                 <GraduationCap className="w-5 h-5 mr-2" />
                 {pageContent.ctaText}
@@ -61,7 +61,7 @@ export default async function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto border-2 border-white bg-white/5 backdrop-blur-sm text-white hover:bg-white/15 text-base md:text-lg px-8 py-6 rounded-xl font-semibold transition-all hover:scale-105"
+                className="w-full sm:w-auto border-2 border-white/70 bg-white/5 backdrop-blur-sm text-white hover:bg-white/15 hover:border-white text-base md:text-lg px-8 py-6 rounded-xl font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-button hover:shadow-button-hover"
               >
                 <Target className="w-5 h-5 mr-2" />
                 Take Free Placement Test
@@ -104,57 +104,66 @@ export default async function HomePage() {
             <div className="hidden md:block absolute top-20 left-1/6 right-1/6 h-0.5 bg-gradient-to-r from-primary via-accent to-secondary opacity-20" />
 
             {/* Step 1 */}
-            <Card className="relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-gray-700 hover:border-primary/30 bg-gray-800">
-              <CardHeader className="text-center p-6">
+            <Card className="relative group hover:shadow-card-hover transition-all duration-200 ease-out hover:-translate-y-1 hover:scale-[1.01] border border-gray-700/50 hover:border-primary/30 bg-gray-800/80 backdrop-blur-sm shadow-card-default">
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent rounded-xl pointer-events-none" />
+
+              <CardHeader className="relative text-center p-6 z-10">
                 <div className="relative w-20 h-20 mx-auto mb-6">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/70 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/70 rounded-2xl shadow-primary-glow group-hover:scale-110 group-hover:rotate-3 transition-all duration-200" />
                   <div className="relative w-full h-full flex items-center justify-center">
                     <Target className="w-10 h-10 text-white" />
                   </div>
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-gray-900 rounded-full shadow-md flex items-center justify-center font-bold text-primary text-lg border-2 border-primary">
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-gray-900 rounded-full shadow-depth-1 flex items-center justify-center font-bold text-primary text-lg border-2 border-primary">
                     1
                   </div>
                 </div>
-                <CardTitle className="font-poppins text-2xl mb-4 text-white">Take Placement Test</CardTitle>
-                <p className="font-inter text-base leading-relaxed text-gray-100">
+                <CardTitle className="font-poppins text-2xl mb-4 text-white tracking-tight leading-tight">Take Placement Test</CardTitle>
+                <p className="font-inter text-base leading-[1.65] text-gray-100">
                   {pageContent.step1Text}
                 </p>
               </CardHeader>
             </Card>
 
             {/* Step 2 */}
-            <Card className="relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-gray-700 hover:border-accent/30 bg-gray-800">
-              <CardHeader className="text-center p-6">
+            <Card className="relative group hover:shadow-card-hover transition-all duration-200 ease-out hover:-translate-y-1 hover:scale-[1.01] border border-gray-700/50 hover:border-accent/30 bg-gray-800/80 backdrop-blur-sm shadow-card-default">
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent rounded-xl pointer-events-none" />
+
+              <CardHeader className="relative text-center p-6 z-10">
                 <div className="relative w-20 h-20 mx-auto mb-6">
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent to-accent/70 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent to-accent/70 rounded-2xl shadow-[0_4px_12px_rgba(213,111,0,0.3)] group-hover:scale-110 group-hover:rotate-3 transition-all duration-200" />
                   <div className="relative w-full h-full flex items-center justify-center">
                     <Award className="w-10 h-10 text-white" />
                   </div>
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-gray-900 rounded-full shadow-md flex items-center justify-center font-bold text-accent text-lg border-2 border-accent">
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-gray-900 rounded-full shadow-depth-1 flex items-center justify-center font-bold text-accent text-lg border-2 border-accent">
                     2
                   </div>
                 </div>
-                <CardTitle className="font-poppins text-2xl mb-4 text-white">Choose Your Plan</CardTitle>
-                <p className="font-inter text-base leading-relaxed text-gray-100">
+                <CardTitle className="font-poppins text-2xl mb-4 text-white tracking-tight leading-tight">Choose Your Plan</CardTitle>
+                <p className="font-inter text-base leading-[1.65] text-gray-100">
                   {pageContent.step2Text}
                 </p>
               </CardHeader>
             </Card>
 
             {/* Step 3 */}
-            <Card className="relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-gray-700 hover:border-secondary/30 bg-gray-800">
-              <CardHeader className="text-center p-6">
+            <Card className="relative group hover:shadow-card-hover transition-all duration-200 ease-out hover:-translate-y-1 hover:scale-[1.01] border border-gray-700/50 hover:border-secondary/30 bg-gray-800/80 backdrop-blur-sm shadow-card-default">
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent rounded-xl pointer-events-none" />
+
+              <CardHeader className="relative text-center p-6 z-10">
                 <div className="relative w-20 h-20 mx-auto mb-6">
-                  <div className="absolute inset-0 bg-gradient-to-br from-secondary to-secondary/70 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-secondary to-secondary/70 rounded-2xl shadow-[0_4px_12px_rgba(29,53,87,0.4)] group-hover:scale-110 group-hover:rotate-3 transition-all duration-200" />
                   <div className="relative w-full h-full flex items-center justify-center">
                     <TrendingUp className="w-10 h-10 text-white" />
                   </div>
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-gray-900 rounded-full shadow-md flex items-center justify-center font-bold text-secondary text-lg border-2 border-secondary">
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-gray-900 rounded-full shadow-depth-1 flex items-center justify-center font-bold text-secondary text-lg border-2 border-secondary">
                     3
                   </div>
                 </div>
-                <CardTitle className="font-poppins text-2xl mb-4 text-white">Start Learning</CardTitle>
-                <p className="font-inter text-base leading-relaxed text-gray-100">
+                <CardTitle className="font-poppins text-2xl mb-4 text-white tracking-tight leading-tight">Start Learning</CardTitle>
+                <p className="font-inter text-base leading-[1.65] text-gray-100">
                   {pageContent.step3Text}
                 </p>
               </CardHeader>
@@ -188,13 +197,16 @@ export default async function HomePage() {
               return (
                 <div
                   key={i}
-                  className="flex items-start gap-4 p-6 rounded-xl border-2 border-gray-700 hover:border-primary/30 hover:bg-gradient-to-br hover:from-gray-800 hover:to-gray-900 transition-all group shadow-sm hover:shadow-md bg-gray-800"
+                  className="relative flex items-start gap-4 p-6 rounded-xl border border-gray-700/50 hover:border-primary/30 hover:bg-gradient-to-br hover:from-gray-800 hover:to-gray-900 transition-all duration-200 ease-out group shadow-card-default hover:shadow-card-hover bg-gray-800/80 backdrop-blur-sm hover:-translate-y-1"
                 >
-                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all shadow-md`}>
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] to-transparent rounded-xl pointer-events-none" />
+
+                  <div className={`relative w-14 h-14 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all duration-200 shadow-depth-1`}>
                     <Icon className="w-7 h-7 text-white" />
                   </div>
-                  <div className="flex-1 pt-2">
-                    <span className="font-inter text-lg font-semibold text-white leading-relaxed">{feature.text}</span>
+                  <div className="relative flex-1 pt-2 z-10">
+                    <span className="font-inter text-lg font-semibold text-white leading-[1.65]">{feature.text}</span>
                   </div>
                 </div>
               )
@@ -229,7 +241,7 @@ export default async function HomePage() {
             <Link href="/register" className="w-full sm:w-auto">
               <Button
                 size="lg"
-                className="w-full sm:w-auto bg-primary hover:bg-primary-hover text-white shadow-2xl text-base md:text-lg px-10 py-6 rounded-xl font-semibold transition-all hover:scale-105 hover:shadow-3xl"
+                className="w-full sm:w-auto bg-primary hover:bg-primary-hover text-white shadow-primary-glow hover:shadow-primary-glow-hover text-base md:text-lg px-10 py-6 rounded-xl font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ring-1 ring-primary/20"
               >
                 <Sparkles className="w-5 h-5 mr-2" />
                 {pageContent.ctaText}
@@ -239,7 +251,7 @@ export default async function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto border-2 border-white bg-white/5 backdrop-blur-sm text-white hover:bg-white/15 text-base md:text-lg px-10 py-6 rounded-xl font-semibold transition-all"
+                className="w-full sm:w-auto border-2 border-white/70 bg-white/5 backdrop-blur-sm text-white hover:bg-white/15 hover:border-white text-base md:text-lg px-10 py-6 rounded-xl font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-button hover:shadow-button-hover"
               >
                 View Pricing Plans
               </Button>

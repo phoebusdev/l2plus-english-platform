@@ -93,5 +93,59 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    /* Enhanced font rendering for dark backgrounds */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* Professional Shadow System */
+@layer utilities {
+  /* Layered shadows for depth hierarchy */
+  .shadow-depth-1 {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .shadow-depth-2 {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .shadow-depth-3 {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Primary color glow for emphasis */
+  .shadow-primary-glow {
+    box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+  }
+
+  .shadow-primary-glow-hover {
+    box-shadow: 0 6px 20px rgba(230, 57, 70, 0.4);
+  }
+
+  .shadow-primary-subtle {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(230, 57, 70, 0.15);
+  }
+
+  .shadow-primary-hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(230, 57, 70, 0.2);
+  }
+
+  /* Standard elevation shadows */
+  .shadow-card-default {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .shadow-card-hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .shadow-button {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .shadow-button-hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   }
 }

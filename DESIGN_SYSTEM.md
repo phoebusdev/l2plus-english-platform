@@ -1,6 +1,6 @@
 # L2+ English Design System
 
-**Version**: 1.0.0
+**Version**: 1.1.0
 **Last Updated**: 2025-10-09
 **Status**: Active - All future development MUST follow these standards
 
@@ -623,6 +623,358 @@ Minimum touch target size: **40x40px** (per WCAG guidelines)
 
 ---
 
+## Visual Polish & Depth System
+
+### Overview
+
+Professional visual polish adds subtle but impactful depth, hierarchy, and tactile quality while maintaining the utility-first, education-focused aesthetic. This system uses layered shadows, micro-interactions, and backdrop effects to create a Stripe/Linear/Vercel-quality polish.
+
+### Layered Shadow System
+
+**Philosophy**: Multiple shadow layers create realistic depth perception (sharp close shadow + soft far shadow).
+
+#### Shadow Utility Classes
+
+```css
+/* globals.css contains these utilities */
+.shadow-depth-1 {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.shadow-depth-2 {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.shadow-depth-3 {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Primary color glow shadows */
+.shadow-primary-glow {
+  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+}
+
+.shadow-primary-glow-hover {
+  box-shadow: 0 6px 20px rgba(230, 57, 70, 0.4);
+}
+
+.shadow-primary-subtle {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(230, 57, 70, 0.15);
+}
+
+/* Card shadows */
+.shadow-card-default {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.shadow-card-hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Button shadows */
+.shadow-button {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.shadow-button-hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+```
+
+#### Shadow Usage Rules
+
+```tsx
+// Default state: Depth-1 or card-default
+<Card className="shadow-card-default">
+
+// Hover state: Increase shadow depth
+<Card className="shadow-card-default hover:shadow-card-hover">
+
+// Emphasized elements (popular badge): Colored glow
+<div className="shadow-primary-glow">
+
+// Primary buttons: Use colored shadows
+<Button className="shadow-primary-glow hover:shadow-primary-glow-hover">
+```
+
+### Hover Lift & Scale Effects
+
+**Philosophy**: Elements respond to hover with subtle movement and scale changes (200ms duration).
+
+```tsx
+// Cards: Lift and scale
+<Card className="hover:-translate-y-1 hover:scale-[1.01] transition-all duration-200 ease-out">
+
+// Buttons: Scale only
+<Button className="hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
+
+// Feature icons: Rotate and scale
+<div className="group-hover:scale-110 group-hover:rotate-3 transition-all duration-200">
+```
+
+**Scale Values**:
+- Cards: `scale-[1.01]` (1% growth - subtle)
+- Buttons: `scale-[1.02]` (2% growth)
+- Active/pressed: `scale-[0.98]` (2% shrink)
+- Icons/decorative: `scale-110` (10% growth OK)
+
+**Translation Values**:
+- Cards: `-translate-y-1` (4px lift)
+- Never use `-translate-y-2` or more (too aggressive)
+
+### Micro-Interactions
+
+**Philosophy**: Small interactive details add tactile quality without being distracting.
+
+#### Checkmark Hover (Feature Lists)
+
+```tsx
+<li className="flex items-start gap-3 group/item">
+  <div className="w-5 h-5 rounded-full bg-primary/10
+                  ring-1 ring-primary/20
+                  group-hover/item:ring-primary/40
+                  group-hover/item:bg-primary/20
+                  group-hover/item:scale-110
+                  transition-all duration-200">
+    <Check className="group-hover/item:scale-110 transition-transform duration-200" />
+  </div>
+</li>
+```
+
+#### Icon Rotation (Buttons)
+
+```tsx
+<Button className="group">
+  <Zap className="group-hover:rotate-12 transition-transform duration-200" />
+  Button Text
+</Button>
+```
+
+#### Badge Pulse
+
+```tsx
+<Crown className="animate-pulse" />
+<Sparkles className="animate-pulse" />
+```
+
+### Backdrop Effects
+
+**Philosophy**: Semi-transparent backgrounds with blur create depth and frosted glass effects.
+
+```tsx
+// Cards with backdrop blur
+<Card className="bg-gray-800/80 backdrop-blur-sm">
+
+// Popular pricing cards
+<Card className="bg-gray-800/90 backdrop-blur-sm">
+
+// Badges
+<div className="bg-white/10 backdrop-blur-sm border border-white/20">
+```
+
+**Opacity Values**:
+- Cards (regular): `bg-gray-800/80` (80% opacity)
+- Cards (emphasized): `bg-gray-800/90` (90% opacity)
+- Badges: `bg-primary/10` or `bg-white/10`
+- Overlays: `from-white/[0.02]` (2% opacity)
+
+### Gradient Overlays
+
+**Philosophy**: Subtle gradients add shine and depth without being flashy.
+
+```tsx
+// Card gradient overlay (applied to all cards)
+<Card className="relative ...">
+  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent rounded-xl pointer-events-none" />
+  <CardContent className="relative z-10">
+    {/* Content */}
+  </CardContent>
+</Card>
+```
+
+**Rules**:
+- Always use `from-white/[0.02]` (2% opacity max)
+- Always apply `pointer-events-none`
+- Always set content to `relative z-10` to appear above overlay
+- Direction: `bg-gradient-to-br` (top-left to bottom-right)
+
+### Typography Refinements
+
+**Line Height Optimization**:
+```tsx
+// Body text: 1.65 (optimal readability on dark backgrounds)
+leading-[1.65]
+
+// Headings: Tight (more compact, better visual weight)
+tracking-tight leading-tight
+
+// Price displays: No leading (numbers look better tight)
+leading-none tracking-tight
+
+// Billing text: Wide tracking (better separation)
+tracking-wide
+```
+
+**Font Smoothing**:
+```css
+/* Applied globally in body */
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+text-rendering: optimizeLegibility;
+```
+
+### Input Focus Glow
+
+**Philosophy**: Inputs show colored glow on focus to indicate active state.
+
+```tsx
+// Input component (built-in)
+<Input className="
+  shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]
+  transition-all duration-200
+  focus-visible:border-primary
+  focus-visible:ring-2 focus-visible:ring-primary/20
+  focus-visible:shadow-[0_0_0_3px_rgba(230,57,70,0.1),inset_0_1px_2px_rgba(0,0,0,0.2)]
+  hover:border-gray-600
+" />
+```
+
+**Focus States**:
+- Border changes to `border-primary`
+- Ring appears: `ring-2 ring-primary/20`
+- Outer glow: `0_0_0_3px_rgba(230,57,70,0.1)`
+- Inner shadow remains for depth
+
+### Border Transparency
+
+**Philosophy**: Semi-transparent borders create layering effect with backgrounds.
+
+```tsx
+// Regular cards
+border border-gray-700/50
+
+// Popular cards
+border border-primary/40
+
+// CTA sections
+border border-gray-700/50
+
+// Buttons
+ring-1 ring-primary/20
+```
+
+**Opacity Values**:
+- Default borders: `/50` (50% opacity)
+- Emphasis borders: `/40` (40% opacity for softer)
+- Rings: `/20` (20% opacity for subtle definition)
+
+### Button Visual Polish
+
+**Complete Button Pattern**:
+```tsx
+// Primary Button
+<Button className="
+  bg-primary hover:bg-primary-hover
+  shadow-primary-glow hover:shadow-primary-glow-hover
+  hover:scale-[1.02] active:scale-[0.98]
+  transition-all duration-200
+  ring-1 ring-primary/20
+">
+
+// Secondary Button
+<Button className="
+  bg-secondary hover:bg-secondary-hover
+  shadow-button hover:shadow-button-hover
+  hover:scale-[1.02] active:scale-[0.98]
+  transition-all duration-200
+  ring-1 ring-secondary/20
+">
+
+// Outline Button
+<Button variant="outline" className="
+  border-2 border-white/70 hover:border-white
+  bg-white/5 hover:bg-white/15
+  shadow-button hover:shadow-button-hover
+  hover:scale-[1.02] active:scale-95
+  transition-all duration-200
+">
+```
+
+### Card Visual Polish
+
+**Complete Card Pattern**:
+```tsx
+<Card className="
+  relative group
+  border border-gray-700/50 hover:border-primary/30
+  bg-gray-800/80 backdrop-blur-sm
+  shadow-card-default hover:shadow-card-hover
+  hover:-translate-y-1 hover:scale-[1.01]
+  transition-all duration-200 ease-out
+">
+  {/* Gradient overlay */}
+  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent rounded-xl pointer-events-none" />
+
+  {/* Content */}
+  <CardHeader className="relative p-6 z-10">
+    <CardTitle className="tracking-tight leading-tight">Title</CardTitle>
+    <p className="leading-[1.65]">Description</p>
+  </CardHeader>
+
+  <CardContent className="relative p-6 z-10">
+    {/* Features with micro-interactions */}
+    <ul>
+      <li className="group/item">
+        <div className="group-hover/item:scale-110 transition-all duration-200">
+          <Check className="group-hover/item:scale-110 transition-transform duration-200" />
+        </div>
+      </li>
+    </ul>
+  </CardContent>
+</Card>
+```
+
+### Timing & Easing
+
+**Philosophy**: Snappier 200ms transitions with natural deceleration.
+
+```tsx
+// Standard timing
+transition-all duration-200 ease-out
+
+// NOT duration-300 (too slow, feels sluggish)
+```
+
+**Easing Values**:
+- `ease-out` - Natural deceleration (default for all)
+- Never use `linear` - feels mechanical
+- Never use `ease-in` - feels unnatural for UI
+
+### Visual Polish Checklist
+
+When creating or updating components:
+
+- [ ] Cards have layered shadows (depth-1 default, depth-2/3 on hover)
+- [ ] Cards lift on hover (`-translate-y-1` and `scale-[1.01]`)
+- [ ] Cards have gradient overlay (`from-white/[0.02]`)
+- [ ] Cards have backdrop blur (`backdrop-blur-sm`)
+- [ ] Cards use semi-transparent backgrounds (`bg-gray-800/80`)
+- [ ] Cards have transparent borders (`border-gray-700/50`)
+- [ ] Buttons have colored shadows matching their color
+- [ ] Buttons scale on hover (`1.02`) and press (`0.98`)
+- [ ] Buttons have rings for definition (`ring-1 ring-primary/20`)
+- [ ] Icons rotate or scale on hover (in button/card contexts)
+- [ ] Checkmarks have ring expansion on hover
+- [ ] Inputs have focus glow with colored shadow
+- [ ] Inputs have inset shadow for depth
+- [ ] Typography uses `leading-[1.65]` for body text
+- [ ] Typography uses `tracking-tight` for headings
+- [ ] All transitions are 200ms with `ease-out`
+- [ ] Backdrop effects use appropriate opacity levels
+- [ ] No scale transforms on grid items (breaks alignment)
+
+---
+
 ## Animation Standards
 
 ### Transitions
@@ -768,6 +1120,23 @@ When creating or updating components:
 ---
 
 ## Version History
+
+### 1.1.0 - 2025-10-09 (Visual Polish System)
+
+**Added**:
+- Layered shadow system (depth-1, depth-2, depth-3, colored glows)
+- Hover lift and scale effects (cards, buttons, icons)
+- Micro-interactions (checkmark hover, icon rotation, badge pulse)
+- Backdrop effects (frosted glass with blur)
+- Gradient overlays (subtle 2% white shine)
+- Typography refinements (line-height 1.65, tracking adjustments)
+- Input focus glow (colored shadow on focus)
+- Border transparency (semi-transparent borders for depth)
+- Complete button and card visual polish patterns
+- Timing & easing standards (200ms with ease-out)
+- Visual polish checklist (17 items)
+
+**Rationale**: Elevated site from functional to Stripe/Linear/Vercel-quality polish. Adds professional depth, hierarchy, and tactile quality while maintaining education-focused aesthetic. All enhancements are subtle and performance-optimized (GPU-accelerated transforms only).
 
 ### 1.0.0 - 2025-10-09 (Initial Release)
 

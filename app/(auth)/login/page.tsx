@@ -64,14 +64,17 @@ function LoginForm() {
           </Link>
         </div>
 
-        <Card className="border-2 border-gray-700 shadow-xl bg-gray-800">
-          <CardHeader className="space-y-2 pb-6">
-            <CardTitle className="font-poppins text-2xl font-bold text-white">Welcome Back</CardTitle>
-            <p className="font-inter text-base text-gray-100">
+        <Card className="relative border border-gray-700/50 shadow-depth-2 bg-gray-800/90 backdrop-blur-sm">
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent rounded-xl pointer-events-none" />
+
+          <CardHeader className="relative space-y-2 pb-6 z-10">
+            <CardTitle className="font-poppins text-2xl font-bold text-white tracking-tight">Welcome Back</CardTitle>
+            <p className="font-inter text-base text-gray-100 leading-[1.65]">
               Log in to your L2+ English account to continue your learning journey
             </p>
           </CardHeader>
-        <CardContent>
+        <CardContent className="relative z-10">
           <form onSubmit={handleSubmit} className="space-y-6">
             {registered && (
               <Alert>
@@ -126,7 +129,7 @@ function LoginForm() {
 
             <Button
               type="submit"
-              className="w-full bg-primary hover:bg-primary-hover font-semibold py-6 rounded-xl transition-all hover:shadow-lg"
+              className="w-full bg-primary hover:bg-primary-hover font-semibold py-6 rounded-xl transition-all duration-200 shadow-primary-glow hover:shadow-primary-glow-hover hover:scale-[1.02] active:scale-[0.98] ring-1 ring-primary/20"
               disabled={isLoading}
             >
               {isLoading ? (

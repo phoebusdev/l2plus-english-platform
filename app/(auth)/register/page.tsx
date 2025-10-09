@@ -76,20 +76,23 @@ export default function RegisterPage() {
           </Link>
         </div>
 
-        <Card className="border-2 border-gray-700 shadow-xl bg-gray-800">
-          <CardHeader className="space-y-2 pb-6">
+        <Card className="relative border border-gray-700/50 shadow-depth-2 bg-gray-800/90 backdrop-blur-sm">
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent rounded-xl pointer-events-none" />
+
+          <CardHeader className="relative space-y-2 pb-6 z-10">
             <div className="flex items-center gap-2">
-              <CardTitle className="font-poppins text-2xl font-bold text-white">Create Your Account</CardTitle>
-              <div className="inline-flex items-center gap-1 bg-primary/10 backdrop-blur-sm px-2 py-1 rounded-full border border-primary/20">
-                <Sparkles className="w-3 h-3 text-primary" />
-                <span className="text-xs font-semibold text-primary">Free Test</span>
+              <CardTitle className="font-poppins text-2xl font-bold text-white tracking-tight">Create Your Account</CardTitle>
+              <div className="inline-flex items-center gap-1 bg-primary/10 backdrop-blur-sm px-2 py-1 rounded-full border border-primary/20 shadow-sm">
+                <Sparkles className="w-3 h-3 text-primary animate-pulse" />
+                <span className="text-xs font-semibold text-primary tracking-wide">Free Test</span>
               </div>
             </div>
-            <p className="font-inter text-base text-gray-100">
+            <p className="font-inter text-base text-gray-100 leading-[1.65]">
               Register to take your free placement test and start your English learning journey
             </p>
           </CardHeader>
-        <CardContent>
+        <CardContent className="relative z-10">
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
               <Alert variant="destructive">
@@ -198,7 +201,7 @@ export default function RegisterPage() {
 
             <Button
               type="submit"
-              className="w-full bg-primary hover:bg-primary-hover font-semibold py-6 rounded-xl transition-all hover:shadow-lg"
+              className="w-full bg-primary hover:bg-primary-hover font-semibold py-6 rounded-xl transition-all duration-200 shadow-primary-glow hover:shadow-primary-glow-hover hover:scale-[1.02] active:scale-[0.98] ring-1 ring-primary/20"
               disabled={isLoading}
             >
               {isLoading ? (
