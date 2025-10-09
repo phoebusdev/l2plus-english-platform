@@ -1,0 +1,119 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { formatGMTDate } from '@/lib/utils/date'
+import { Loader2 } from 'lucide-react'
+
+export default function TestPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+  const [eligibility, setEligibility] = useState<any>(null)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    checkEligibility()
+  }, [])
+
+  const checkEligibility = async () => {
+    try {
+      const response = await fetch('/api/test/eligibility')
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to check eligibility')
+      }
+
+      setEligibility(data)
+    } catch (err: any) {
+      setError(err.message)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleStartTest = () => {
+    router.push('/test/start')
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto px-4 py-12 max-w-2xl">
+        <Alert variant="destructive">
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      </div>
+    )
+  }
+
+  return (
+    <div className="container mx-auto px-4 py-12 max-w-2xl">
+      <Card>
+        <CardHeader>
+          <CardTitle>Placement Test</CardTitle>
+          <CardDescription>
+            Take our CEFR-based test to determine your English proficiency level
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div>
+            <h3 className="font-semibold mb-2">Test Information:</h3>
+            <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+              <li>20 multiple-choice questions</li>
+              <li>Covers grammar, vocabulary, and comprehension</li>
+              <li>Results determine your CEFR level (A1-C2)</li>
+              <li>Can be retaken once every 7 days</li>
+              <li>Takes approximately 15-20 minutes</li>
+            </ul>
+          </div>
+
+          {eligibility?.eligible ? (
+            <>
+              {eligibility.lastTestDate && (
+                <Alert>
+                  <AlertDescription>
+                    You last took this test on{' '}
+                    {formatGMTDate(new Date(eligibility.lastTestDate), 'PPP')}
+                  </AlertDescription>
+                </Alert>
+              )}
+              <Button onClick={handleStartTest} size="lg" className="w-full">
+                Start Placement Test
+              </Button>
+            </>
+          ) : (
+            <Alert>
+              <AlertTitle>Test Unavailable</AlertTitle>
+              <AlertDescription>
+                {eligibility?.reason}
+                {eligibility?.nextAvailableDate && (
+                  <>
+                    <br />
+                    Next test available on:{' '}
+                    {formatGMTDate(new Date(eligibility.nextAvailableDate), 'PPP')}
+                  </>
+                )}
+              </AlertDescription>
+            </Alert>
+          )}
+
+          <Button variant="outline" onClick={() => router.push('/dashboard')} className="w-full">
+            Back to Dashboard
+          </Button>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
