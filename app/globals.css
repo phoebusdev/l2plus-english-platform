@@ -75,21 +75,7 @@
   --font-inter: var(--font-inter);
 }
 
-@media (prefers-color-scheme: light) {
-  @theme {
-    /* Light Mode - Only applies if user prefers light theme */
-    --color-background: 0 0% 100%;
-    --color-foreground: 211 58% 22%;
-    --color-card: 0 0% 100%;
-    --color-card-foreground: 211 58% 22%;
-    --color-popover: 0 0% 100%;
-    --color-popover-foreground: 211 58% 22%;
-    --color-muted: 210 40% 96.1%;
-    --color-muted-foreground: 215 16% 47%;
-    --color-border: 214 32% 91%;
-    --color-input: 214 32% 91%;
-  }
-}
+/* Light mode media query removed - dark theme is now always active */
 
 * {
   border-color: hsl(var(--color-border));

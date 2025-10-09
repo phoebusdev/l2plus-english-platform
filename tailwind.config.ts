@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  darkMode: 'class',
+  // darkMode setting removed - Tailwind v4 handles themes via @theme directive in CSS
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
