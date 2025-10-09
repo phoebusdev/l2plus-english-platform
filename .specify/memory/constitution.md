@@ -1,18 +1,23 @@
 # L2+ English Platform Constitution
 
 <!--
-Sync Impact Report - v1.0.0
+Sync Impact Report - v1.1.0
 ============================================
-Version Change: None → 1.0.0 (Initial Constitution)
-Modified Principles: N/A (Initial version)
-Added Sections: All core principles established
+Version Change: 1.0.0 → 1.1.0 (MINOR: Added Design System Standards)
+Modified Principles: None (existing principles unchanged)
+Added Sections: VII. Design System Standards
 Removed Sections: None
 Templates Requiring Updates:
-  ✅ spec-template.md - Validated, aligns with principles
-  ✅ plan-template.md - Validated, aligns with principles
-  ✅ tasks-template.md - Validated, aligns with principles
-  ✅ checklist-template.md - Validated, aligns with principles
-Follow-up TODOs: None
+  ✅ spec-template.md - No changes required (design system is implementation detail)
+  ✅ plan-template.md - No changes required (design system referenced in UI sections)
+  ✅ tasks-template.md - No changes required (design tasks follow standard format)
+  ✅ checklist-template.md - No changes required (design checks are quality gates)
+Documentation Updated:
+  ✅ DESIGN_SYSTEM.md - Created comprehensive design system reference
+  ✅ CLAUDE.md - Added Design System Standards section with quick reference
+Follow-up TODOs:
+  - Enforce design system standards in code reviews
+  - Add design system lint rules if feasible (future enhancement)
 -->
 
 ## Core Principles
@@ -96,6 +101,29 @@ Performance requirements:
 - Mobile responsive down to 320px width minimum
 
 **Rationale**: Educational platform competes with established providers. Slow performance causes student abandonment, damages brand perception, and reduces conversion rates. Performance directly impacts revenue.
+
+### VII. Design System Standards
+
+**MUST** maintain strict visual consistency through systematic design tokens and component patterns.
+
+Design system requirements:
+- All spacing MUST use 4px-based increments (4/6/8/12/16px only)
+- Section padding MUST be `py-16 md:py-24` (regular) or `py-20 md:py-32` (hero)
+- Card padding MUST be uniform `p-6` across all cards
+- Form field spacing MUST be `space-y-6`, field groups `space-y-2`
+- Grid gaps MUST be consistent `gap-6`
+- Typography MUST limit to 2-3 responsive breakpoints maximum
+- Headings MUST use `font-poppins` (600-800 weight)
+- Body text MUST use `font-inter` (400-600 weight)
+- Dark theme MUST be default and consistent (`bg-gray-900`, `bg-gray-800` for cards)
+- Colors MUST use semantic variables only (`primary`, `secondary`, `accent`)
+- NEVER use hardcoded Tailwind colors (`bg-red-500`, `text-blue-400`)
+- NEVER use 4+ typography breakpoints (`text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl`)
+- NEVER use random spacing (`mb-3`, `mb-5`, `mb-7`, `mb-9`, `mb-10`, `mb-14`)
+- NEVER use scale transforms on grid items (breaks alignment)
+- All color combinations MUST meet WCAG AA contrast standards (4.5:1 for text, 3:1 for UI)
+
+**Rationale**: Visual consistency directly impacts brand perception and user trust. Educational platforms targeting professional learners must appear polished and well-designed. Random spacing, inconsistent typography, and contrast issues signal unprofessionalism and reduce conversion rates. Systematic design tokens prevent visual regression and accelerate development by eliminating design decisions. See `DESIGN_SYSTEM.md` for comprehensive reference.
 
 ## Technology Standards
 
@@ -239,4 +267,4 @@ Performance requirements:
 - **Specification**: See `../specs/006-build-l2-english/spec.md` for requirements
 - **Data Model**: See `../specs/006-build-l2-english/data-model.md` for schema
 
-**Version**: 1.0.0 | **Ratified**: 2025-10-09 | **Last Amended**: 2025-10-09
+**Version**: 1.1.0 | **Ratified**: 2025-10-09 | **Last Amended**: 2025-10-09

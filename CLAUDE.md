@@ -57,6 +57,125 @@ L2+ English is an online English language learning platform with:
 - **Lightweight design** (no heavy animations per client requirement)
 - **Mobile-responsive** (320px minimum width)
 
+### Design System Standards
+
+**IMPORTANT**: This project follows strict design system standards to maintain visual consistency and professional appearance. See `DESIGN_SYSTEM.md` for comprehensive reference.
+
+#### Critical Rules (Must Follow)
+1. **Spacing Scale** - Use systematic 4px increments only:
+   - `space-1` (4px), `space-2` (8px), `space-3` (12px), `space-6` (24px), `space-8` (32px), `space-12` (48px), `space-16` (64px)
+   - Section padding: `py-16 md:py-24` (regular), `py-20 md:py-32` (hero)
+   - Section header margin: `mb-12`
+   - Card padding: `p-6` (uniform)
+   - Form field spacing: `space-y-6`
+   - Grid gaps: `gap-6`
+
+2. **Typography** - Maximum 2-3 responsive breakpoints per element:
+   - Headings: `font-poppins` (600-800 weight)
+   - Body text: `font-inter` (400-600 weight)
+   - Example: `text-4xl md:text-5xl lg:text-6xl` (3 breakpoints max)
+   - Never use 4+ breakpoints like `text-4xl sm:text-5xl md:text-6xl lg:text-7xl`
+
+3. **Dark Theme** - Default and consistent:
+   - Background: `bg-gray-900` (primary), `bg-gray-800` (cards/sections)
+   - Text: `text-white` (headings), `text-gray-100` (body)
+   - Borders: `border-gray-700`
+   - Never mix light theme elements into dark theme pages
+
+4. **Colors** - Use semantic color variables only:
+   - Primary: `bg-primary`, `text-primary`, `border-primary`
+   - Secondary: `bg-secondary`, `text-secondary`
+   - Accent: `bg-accent`, `text-accent`
+   - Never use hardcoded colors like `bg-red-500` or `text-blue-400`
+
+#### Component Patterns
+
+**Button Variants**:
+```tsx
+// Primary action (most important)
+<Button className="bg-primary hover:bg-primary-hover">
+
+// Secondary action
+<Button className="bg-secondary hover:bg-secondary-hover">
+
+// Outline (less prominent)
+<Button variant="outline" className="border-2 border-white bg-white/5">
+```
+
+**Card Pattern**:
+```tsx
+<Card className="border-2 border-gray-700 hover:border-primary/30 bg-gray-800">
+  <CardHeader className="p-6">
+    <CardTitle className="font-poppins text-2xl font-bold text-white">
+  </CardHeader>
+  <CardContent className="p-6">
+</Card>
+```
+
+**Form Pattern**:
+```tsx
+<form className="space-y-6">
+  <div className="space-y-2">
+    <Label htmlFor="field">Label</Label>
+    <Input id="field" />
+    <p className="text-xs text-muted-foreground">Helper text</p>
+  </div>
+</form>
+```
+
+**Section Pattern**:
+```tsx
+<section className="py-16 md:py-24 px-4 bg-gray-900">
+  <div className="container mx-auto max-w-6xl">
+    <div className="text-center mb-12">
+      <h2 className="font-poppins text-3xl md:text-4xl font-bold mb-6 text-white">
+        Section Title
+      </h2>
+      <p className="font-inter text-lg md:text-xl text-gray-100 max-w-2xl mx-auto">
+        Section description
+      </p>
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Cards */}
+    </div>
+  </div>
+</section>
+```
+
+#### Anti-Patterns (Never Do This)
+- ❌ Random spacing: `mb-3`, `mb-5`, `mb-7`, `mb-9`, `mb-10`, `mb-14`
+- ❌ Excessive breakpoints: `text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl`
+- ❌ Inconsistent card padding: `pt-8 pb-6`, `p-5`, `px-6 py-4`
+- ❌ Mixed form spacing: `space-y-2` in one form, `space-y-4` in another
+- ❌ Hardcoded colors: `bg-red-500`, `text-blue-400`, `border-green-300`
+- ❌ Theme mixing: Light theme cards on dark backgrounds
+- ❌ Scale transforms on grid items: `scale-105` breaks alignment
+- ❌ Heavy animations: No `animate-bounce`, `animate-spin` on page elements
+
+#### Quick Reference
+- **Section spacing**: `py-16 md:py-24` (regular), `py-20 md:py-32` (hero)
+- **Card padding**: `p-6` (all cards, uniform)
+- **Form spacing**: `space-y-6` (between fields), `space-y-2` (within field group)
+- **Grid gaps**: `gap-6` (consistent across all grids)
+- **Button spacing**: `gap-4` in button groups
+- **Margins**: Use `mb-6`, `mb-8`, `mb-12`, `mb-16` only
+- **Max width**: `max-w-6xl` (sections), `max-w-2xl` (text content), `max-w-4xl` (prose)
+
+#### WCAG AA Compliance
+All color combinations meet WCAG AA standards:
+- Text contrast ratio: ≥ 4.5:1 (body text), ≥ 3:1 (headings/UI)
+- Focus indicators: 2px solid ring with `ring-offset-2`
+- Touch targets: Minimum 44×44px (buttons use `py-6` for adequate height)
+
+#### When Adding New Components
+1. Check DESIGN_SYSTEM.md for existing patterns first
+2. Use semantic color variables (`primary`, `secondary`, `accent`)
+3. Follow spacing scale (4/6/8/12/16px increments)
+4. Limit typography to 2-3 breakpoints
+5. Test on mobile (320px width minimum)
+6. Verify WCAG AA contrast with design tokens
+7. Keep animations lightweight (transitions only, no heavy animations)
+
 ### Validation & Type Safety
 - **Zod** for schema validation
 - **Type-safe API routes** with Zod schemas
