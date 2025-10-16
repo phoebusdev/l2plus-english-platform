@@ -18,7 +18,10 @@ export const registerUserSchema = z.object({
   fullName: z.string().min(2, 'Full name must be at least 2 characters').max(255),
   phone: z.string().regex(phoneRegex, 'Invalid phone number format'),
   timezone: z.string().min(1, 'Timezone is required'),
-  selfReportedLevel: z.enum(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']).optional(),
+  selfReportedLevel: z.preprocess(
+    (val) => (val === '' ? undefined : val),
+    z.enum(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']).optional()
+  ),
 })
 
 export const loginSchema = z.object({
