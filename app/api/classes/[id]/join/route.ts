@@ -6,7 +6,7 @@ import { eq, and, sql } from 'drizzle-orm'
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth()
@@ -15,7 +15,7 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const classId = params.id
+    const { id: classId } = await params
 
     // Get student record
     const [student] = await db

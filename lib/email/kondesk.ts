@@ -69,7 +69,7 @@ export async function sendKondeskNotification(
       to: process.env.KONDESK_EMAIL,
       subject: `New Student Registration: ${studentData.fullName}`,
       html,
-      emailType: 'admin_notification',
+      emailType: 'kondesk_registration',
       metadata: {
         studentEmail: studentData.email,
         fullName: studentData.fullName,

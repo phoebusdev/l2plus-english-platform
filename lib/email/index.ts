@@ -13,6 +13,7 @@ export type EmailType =
   | 'payment_failed'
   | 'subscription_cancelled'
   | 'password_reset'
+  | 'kondesk_registration'
 
 interface SendEmailOptions {
   to: string

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -18,7 +18,7 @@ interface TestResult {
   completedAt: string
 }
 
-export default function TestResultsPage() {
+function TestResultsContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const resultId = searchParams.get('id')
@@ -125,7 +125,7 @@ export default function TestResultsPage() {
               What This Means
             </h3>
             <p className="text-gray-700 leading-relaxed">
-              {levelDescription.name}: {levelDescription}
+              {levelDescription}
             </p>
           </div>
 
@@ -207,5 +207,17 @@ export default function TestResultsPage() {
         You can retake the placement test after 7 days if you'd like to reassess your level.
       </p>
     </div>
+  )
+}
+
+export default function TestResultsPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-lg text-muted-foreground">Loading results...</p>
+      </div>
+    }>
+      <TestResultsContent />
+    </Suspense>
   )
 }
