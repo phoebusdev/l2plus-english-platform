@@ -8,7 +8,9 @@ import {
   Calendar,
   BookOpen,
   User,
-  LogOut
+  LogOut,
+  Download,
+  DollarSign
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -34,6 +36,8 @@ export function Sidebar({ userRole = 'student', userName, userAvatar }: SidebarP
     { href: '/admin/classes', label: 'Classes', icon: Calendar },
     { href: '/admin/test-management', label: 'Test Management', icon: FileText },
     { href: '/admin/content', label: 'Content', icon: BookOpen },
+    { href: '/admin/pricing', label: 'Pricing', icon: DollarSign },
+    { href: '/admin/export', label: 'Export Data', icon: Download },
   ]
 
   const navItems = userRole === 'admin' ? adminNavItems : studentNavItems
