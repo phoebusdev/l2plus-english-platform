@@ -43,7 +43,7 @@ export async function GET(
       assignedLevel: result.assignedLevel,
       completedAt: result.completedAt,
       answers: result.answers,
-      testVersion: result.testVersion,
+      testId: result.testId,
     })
   } catch (error) {
     console.error('Test result fetch error:', error)
