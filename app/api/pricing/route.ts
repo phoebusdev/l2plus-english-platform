@@ -9,7 +9,7 @@ export async function GET() {
     const plans = await db
       .select()
       .from(pricingPlans)
-      .orderBy(asc(pricingPlans.priceInCents))
+      .orderBy(asc(pricingPlans.priceGbp))
 
     return NextResponse.json(plans, { status: 200 })
   } catch (error: any) {
