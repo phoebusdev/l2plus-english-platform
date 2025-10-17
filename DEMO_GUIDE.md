@@ -162,6 +162,14 @@ These features are **implemented** but need the client's API keys to work:
 - **Password**: Admin123!
 - **Role**: admin
 
+### Demo Student Account
+- **Email**: student@demo.com
+- **Password**: Student123!
+- **CEFR Level**: B2 (Upper Intermediate)
+- **Payment Status**: Active (Standard Plan)
+- **Enrolled Classes**: 3 upcoming classes
+- **Test Results**: 15/20 (75%, B2 level)
+
 ### Pricing Plans (4 tiers)
 1. **Basic** - $29/month - 4 classes/month
 2. **Standard** - $49/month - 8 classes/month
@@ -183,32 +191,38 @@ These features are **implemented** but need the client's API keys to work:
 ### For Client Demo Session:
 
 1. **Show Public Pages**
-   - Homepage → About → Pricing
+   - Homepage → About → Pricing → FAQ → Contact
    - Highlight professional design, mobile responsiveness
+   - Show legal pages (Terms, Cookies, Privacy)
 
-2. **Student Registration Flow**
+2. **Demo Student Login** (Fastest Way to Show Features)
+   - Login with: student@demo.com / Student123!
+   - View Dashboard with B2 level assignment
+   - Browse Classes (3 enrolled, 1 available)
+   - View Materials (enrolled classes with downloadable PDFs)
+   - View Test Results (75% score, B2 assignment)
+   - Check Billing page (Active subscription)
+
+3. **Student Registration Flow** (If Time Permits)
    - Register new student
    - Show form validation
    - Login immediately after registration
 
-3. **Placement Test**
+4. **Placement Test**
    - Take the 20-question test (5 pages)
    - Show progress tracking
    - Complete test and see CEFR level assignment
    - Show 7-day retake restriction
 
-4. **Student Dashboard**
-   - View assigned level
-   - Browse available classes
-   - Show payment status (will be "pending" without Stripe webhook)
-
 5. **Admin Panel Tour**
-   - Login as admin
-   - Show student list with filters
-   - Create a test class
+   - Login as admin (admin@l2plusenglish.com / Admin123!)
+   - Show student list with filters (includes demo student)
+   - Show existing classes with enrollments
+   - Create a new test class
    - Upload a sample PDF material
    - Edit homepage content live
-   - Export student data
+   - Export student data (CSV/Excel)
+   - Manage pricing plans
 
 6. **Explain Client Setup Requirements**
    - Stripe webhook secret (5 minutes to add)
