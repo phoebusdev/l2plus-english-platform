@@ -3,29 +3,96 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Calendar, BookOpen, Award, CreditCard, Clock } from 'lucide-react'
-import { mockStudents, mockClassSessions, mockTestResults, mockUsers } from '@/lib/mock/data'
+import { Calendar, BookOpen, Award, CreditCard } from 'lucide-react'
+import { auth } from '@/lib/auth'
+import { db } from '@/lib/db'
+import { students, testResults, classSessions, enrollments, users } from '@/lib/db/schema'
+import { eq, gte, and, desc } from 'drizzle-orm'
 import { getCEFRDescription } from '@/lib/utils/cefr'
 import { formatGMTDate } from '@/lib/utils/date'
 
 export default async function StudentDashboard() {
-  // Mock data for immediate demo
-  // TODO: Replace with real database fetch when connected
-  const student = mockStudents.student1
-  const user = mockUsers.student1
-  const testResults = mockTestResults
-  const upcomingClasses = mockClassSessions.filter(
-    session => session.cefrLevel === student.assignedCefrLevel
-  )
+  const session = await auth()
 
-  const latestTest = testResults[testResults.length - 1]
+  if (!session?.user) {
+    return null // Layout handles redirect
+  }
+
+  // Fetch student data
+  const [student] = await db
+    .select()
+    .from(students)
+    .where(eq(students.id, session.user.id))
+    .limit(1)
+
+  const [user] = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, session.user.id))
+    .limit(1)
+
+  if (!student || !user) {
+    return (
+      <div className="py-8 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <Alert variant="destructive">
+            <AlertDescription>
+              Student profile not found. Please contact support.
+            </AlertDescription>
+          </Alert>
+        </div>
+      </div>
+    )
+  }
+
+  // Fetch test results
+  const studentTestResults = await db
+    .select()
+    .from(testResults)
+    .where(eq(testResults.studentId, session.user.id))
+    .orderBy(desc(testResults.completedAt))
+    .limit(5)
+
+  const latestTest = studentTestResults[0] || null
+
+  // Fetch upcoming classes for student's level
+  const now = new Date()
+  const upcomingClasses = await db
+    .select({
+      id: classSessions.id,
+      dateTime: classSessions.dateTime,
+      cefrLevel: classSessions.cefrLevel,
+      zoomUrl: classSessions.zoomUrl,
+      capacity: classSessions.capacity,
+      enrollmentCount: classSessions.enrollmentCount,
+      instructorName: classSessions.instructorName,
+    })
+    .from(classSessions)
+    .where(
+      and(
+        eq(classSessions.cefrLevel, student.assignedCefrLevel || 'A1'),
+        gte(classSessions.dateTime, now)
+      )
+    )
+    .orderBy(classSessions.dateTime)
+    .limit(3)
+
+  // Check which classes student is enrolled in
+  const studentEnrollments = await db
+    .select({ classSessionId: enrollments.classSessionId })
+    .from(enrollments)
+    .where(eq(enrollments.studentId, session.user.id))
+
+  const enrolledClassIds = new Set(studentEnrollments.map(e => e.classSessionId))
 
   return (
     <div className="py-8 px-4">
       <div className="container mx-auto max-w-6xl">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Welcome back, {user.fullName.split(' ')[0]}!</h1>
+          <h1 className="text-3xl font-bold mb-2">
+            Welcome back, {user.fullName.split(' ')[0]}!
+          </h1>
           <p className="text-muted-foreground">Here's your learning dashboard</p>
         </div>
 
@@ -38,7 +105,9 @@ export default async function StudentDashboard() {
               <Award className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{student.assignedCefrLevel || 'Not tested'}</div>
+              <div className="text-2xl font-bold">
+                {student.assignedCefrLevel || 'Not tested'}
+              </div>
               <p className="text-xs text-muted-foreground">
                 {student.assignedCefrLevel && getCEFRDescription(student.assignedCefrLevel)}
               </p>
@@ -124,7 +193,9 @@ export default async function StudentDashboard() {
                 <div className="flex items-center justify-between">
                   <div>
                     <CardTitle>Upcoming Classes</CardTitle>
-                    <CardDescription>Your {student.assignedCefrLevel} level classes</CardDescription>
+                    <CardDescription>
+                      Your {student.assignedCefrLevel || 'assigned'} level classes
+                    </CardDescription>
                   </div>
                   <Link href="/classes">
                     <Button variant="outline" size="sm">
@@ -136,39 +207,54 @@ export default async function StudentDashboard() {
               <CardContent>
                 {upcomingClasses.length > 0 ? (
                   <div className="space-y-4">
-                    {upcomingClasses.slice(0, 3).map(classSession => (
-                      <div
-                        key={classSession.id}
-                        className="flex items-start gap-4 p-4 border rounded-lg hover:bg-accent transition"
-                      >
-                        <div className="flex-shrink-0">
-                          <Calendar className="w-10 h-10 text-primary" />
+                    {upcomingClasses.map(classSession => {
+                      const isEnrolled = enrolledClassIds.has(classSession.id)
+
+                      return (
+                        <div
+                          key={classSession.id}
+                          className="flex items-start gap-4 p-4 border rounded-lg hover:bg-accent transition"
+                        >
+                          <div className="flex-shrink-0">
+                            <Calendar className="w-10 h-10 text-primary" />
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="font-semibold">
+                              {classSession.cefrLevel} Level Class
+                              {isEnrolled && (
+                                <Badge variant="default" className="ml-2">Enrolled</Badge>
+                              )}
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                              {formatGMTDate(classSession.dateTime, 'PPpp')} GMT
+                            </p>
+                            <p className="text-sm text-muted-foreground mt-1">
+                              Instructor: {classSession.instructorName}
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              {classSession.enrollmentCount}/{classSession.capacity} enrolled
+                            </p>
+                          </div>
+                          <div className="flex-shrink-0">
+                            {student.paymentStatus === 'active' ? (
+                              isEnrolled ? (
+                                <Link href={`/classes/${classSession.id}/join`}>
+                                  <Button size="sm">Join Class</Button>
+                                </Link>
+                              ) : (
+                                <Link href={`/classes`}>
+                                  <Button size="sm" variant="outline">Enroll</Button>
+                                </Link>
+                              )
+                            ) : (
+                              <Button size="sm" disabled>
+                                Locked
+                              </Button>
+                            )}
+                          </div>
                         </div>
-                        <div className="flex-1">
-                          <h3 className="font-semibold">{classSession.cefrLevel} Level Class</h3>
-                          <p className="text-sm text-muted-foreground">
-                            {formatGMTDate(classSession.dateTime, 'PPpp')} GMT
-                          </p>
-                          <p className="text-sm text-muted-foreground mt-1">
-                            Instructor: {classSession.instructorName}
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            {classSession.enrollmentCount}/{classSession.capacity} enrolled
-                          </p>
-                        </div>
-                        <div className="flex-shrink-0">
-                          {student.paymentStatus === 'active' ? (
-                            <Link href={`/classes/${classSession.id}/join`}>
-                              <Button size="sm">Join Class</Button>
-                            </Link>
-                          ) : (
-                            <Button size="sm" disabled>
-                              Locked
-                            </Button>
-                          )}
-                        </div>
-                      </div>
-                    ))}
+                      )
+                    })}
                   </div>
                 ) : (
                   <div className="text-center py-8 text-muted-foreground">
@@ -187,9 +273,9 @@ export default async function StudentDashboard() {
                 <CardDescription>Your placement test results</CardDescription>
               </CardHeader>
               <CardContent>
-                {testResults.length > 0 ? (
+                {studentTestResults.length > 0 ? (
                   <div className="space-y-3">
-                    {testResults.map(result => (
+                    {studentTestResults.map(result => (
                       <div key={result.id} className="flex items-center justify-between p-3 border rounded">
                         <div>
                           <p className="font-semibold">CEFR Level: {result.assignedLevel}</p>
@@ -259,21 +345,13 @@ export default async function StudentDashboard() {
                 <p className="text-sm text-muted-foreground">
                   Have questions about your classes or subscription?
                 </p>
-                <Link href="/about">
+                <Link href="/contact">
                   <Button className="w-full" variant="outline" size="sm">
                     Contact Support
                   </Button>
                 </Link>
               </CardContent>
             </Card>
-
-            {/* Demo Mode Alert */}
-            <Alert>
-              <AlertDescription className="text-xs">
-                <strong>Demo Mode Active:</strong> This dashboard is using mock data for demonstration
-                purposes. Real database integration pending.
-              </AlertDescription>
-            </Alert>
           </div>
         </div>
       </div>
