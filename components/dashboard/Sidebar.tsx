@@ -43,12 +43,15 @@ export function Sidebar({ userRole = 'student', userName, userAvatar }: SidebarP
   const navItems = userRole === 'admin' ? adminNavItems : studentNavItems
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-white border-r border-gray-200">
+    <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-gray-900 border-r border-gray-700">
       <div className="flex flex-col h-full">
         {/* Logo Section */}
-        <div className="px-6 py-8 border-b border-gray-200">
-          <Link href="/" className="flex items-center">
-            <span className="text-2xl font-bold text-primary font-poppins">
+        <div className="px-6 py-8 border-b border-gray-700">
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-md">
+              <BookOpen className="w-6 h-6 text-white" />
+            </div>
+            <span className="text-xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent font-poppins">
               L2+ English
             </span>
           </Link>
@@ -56,9 +59,9 @@ export function Sidebar({ userRole = 'student', userName, userAvatar }: SidebarP
 
         {/* User Profile Section */}
         {userName && (
-          <div className="px-6 py-6 border-b border-gray-200">
+          <div className="px-6 py-6 border-b border-gray-700">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center border-2 border-primary/30">
                 {userAvatar ? (
                   <img
                     src={userAvatar}
@@ -70,10 +73,10 @@ export function Sidebar({ userRole = 'student', userName, userAvatar }: SidebarP
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">
+                <p className="text-sm font-medium text-white truncate">
                   {userName}
                 </p>
-                <p className="text-xs text-gray-500 capitalize">{userRole}</p>
+                <p className="text-xs text-gray-400 capitalize">{userRole}</p>
               </div>
             </div>
           </div>
@@ -91,10 +94,10 @@ export function Sidebar({ userRole = 'student', userName, userAvatar }: SidebarP
                   <Link
                     href={item.href}
                     className={cn(
-                      'flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors',
+                      'flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200',
                       isActive
-                        ? 'bg-primary/10 text-primary border-l-4 border-primary'
-                        : 'text-gray-700 hover:bg-gray-100 hover:text-primary'
+                        ? 'bg-gradient-to-r from-primary/20 to-accent/20 text-white border-l-4 border-primary shadow-lg'
+                        : 'text-gray-300 hover:bg-gray-800 hover:text-white hover:shadow-md'
                     )}
                   >
                     <Icon className="h-5 w-5" />
@@ -107,13 +110,12 @@ export function Sidebar({ userRole = 'student', userName, userAvatar }: SidebarP
         </nav>
 
         {/* Logout Button */}
-        <div className="px-4 py-6 border-t border-gray-200">
+        <div className="px-4 py-6 border-t border-gray-700">
           <button
             onClick={() => {
-              // Implement logout logic
               window.location.href = '/api/auth/signout'
             }}
-            className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-red-600 transition-colors"
+            className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-sm font-medium text-gray-300 hover:bg-red-900/20 hover:text-red-400 transition-all duration-200"
           >
             <LogOut className="h-5 w-5" />
             <span>Log Out</span>

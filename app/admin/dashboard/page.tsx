@@ -50,10 +50,10 @@ export default async function AdminDashboard() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-4xl font-bold text-gray-900 font-poppins">
+        <h1 className="text-4xl font-bold text-white font-poppins">
           Admin Dashboard
         </h1>
-        <p className="text-gray-600 mt-2">
+        <p className="text-gray-300 mt-2 font-inter">
           Platform overview and key metrics
         </p>
       </div>

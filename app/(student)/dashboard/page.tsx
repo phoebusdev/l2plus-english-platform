@@ -90,10 +90,10 @@ export default async function StudentDashboard() {
       <div className="container mx-auto max-w-6xl">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">
+          <h1 className="text-3xl font-bold mb-2 text-white font-poppins">
             Welcome back, {user.fullName.split(' ')[0]}!
           </h1>
-          <p className="text-muted-foreground">Here's your learning dashboard</p>
+          <p className="text-gray-300 font-inter">Here's your learning dashboard</p>
         </div>
 
         {/* Stats Cards */}
