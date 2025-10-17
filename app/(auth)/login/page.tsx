@@ -3,7 +3,7 @@
 import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { signIn, getSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -35,21 +35,14 @@ function LoginForm() {
 
       if (result?.error) {
         setError('Invalid email or password')
+        setIsLoading(false)
         return
       }
 
-      // Get the updated session to check user role
-      const session = await getSession()
-
-      // Redirect based on role
-      if (session?.user?.role === 'admin') {
-        window.location.href = '/admin/dashboard'
-      } else {
-        window.location.href = '/dashboard'
-      }
+      // Use server-side redirect handler to check role
+      window.location.href = '/api/auth/redirect'
     } catch (err: any) {
       setError('An error occurred during login')
-    } finally {
       setIsLoading(false)
     }
   }
