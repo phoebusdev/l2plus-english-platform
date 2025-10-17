@@ -39,18 +39,8 @@ function LoginForm() {
         return
       }
 
-      // Success - fetch updated session and redirect based on role
-      const updatedSession = await getSession()
-      console.log('After login - session:', updatedSession)
-
-      if (updatedSession?.user) {
-        const targetUrl = updatedSession.user.role === 'admin' ? '/admin/dashboard' : '/dashboard'
-        console.log('Redirecting to:', targetUrl, 'for role:', updatedSession.user.role)
-        window.location.href = targetUrl
-      } else {
-        // Fallback if session not immediately available
-        window.location.reload()
-      }
+      // Success - redirect to main dashboard which will route based on role
+      window.location.href = '/dashboard'
     } catch (err: any) {
       console.error('Login error:', err)
       setError('An error occurred during login')

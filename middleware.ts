@@ -9,12 +9,10 @@ export default NextAuth(authConfig).auth
 
 // Matcher configuration
 // Note: /login and /register are NOT in matcher - they handle their own auth redirects
+// /dashboard is a server-side redirect page, also not protected by middleware
 export const config = {
   matcher: [
-    '/dashboard/:path*',
-    '/test/:path*',
-    '/classes/:path*',
-    '/materials/:path*',
+    '/student/:path*',
     '/admin/:path*',
   ],
 }
