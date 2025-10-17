@@ -3,7 +3,7 @@
 import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { signIn } from 'next-auth/react'
+import { signIn, getSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -20,7 +20,6 @@ function LoginForm() {
   const [password, setPassword] = useState('')
 
   const registered = searchParams.get('registered') === 'true'
-  const from = searchParams.get('from') || '/dashboard'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -39,9 +38,15 @@ function LoginForm() {
         return
       }
 
-      // Redirect to intended page or dashboard
-      router.push(from)
-      router.refresh()
+      // Get the updated session to check user role
+      const session = await getSession()
+
+      // Redirect based on role
+      if (session?.user?.role === 'admin') {
+        window.location.href = '/admin/dashboard'
+      } else {
+        window.location.href = '/dashboard'
+      }
     } catch (err: any) {
       setError('An error occurred during login')
     } finally {
