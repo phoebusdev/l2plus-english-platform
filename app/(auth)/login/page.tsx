@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, Suspense } from 'react'
+import { useState, Suspense, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -14,12 +14,24 @@ import { GraduationCap, LogIn } from 'lucide-react'
 function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const { data: session, status } = useSession()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const registered = searchParams.get('registered') === 'true'
+
+  // Redirect authenticated users
+  useEffect(() => {
+    if (status === 'authenticated' && session?.user) {
+      if (session.user.role === 'admin') {
+        window.location.href = '/admin/dashboard'
+      } else {
+        window.location.href = '/dashboard'
+      }
+    }
+  }, [session, status])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -39,8 +51,8 @@ function LoginForm() {
         return
       }
 
-      // Use server-side redirect handler to check role
-      window.location.href = '/api/auth/redirect'
+      // Success - reload page to trigger useEffect redirect based on role
+      window.location.reload()
     } catch (err: any) {
       setError('An error occurred during login')
       setIsLoading(false)

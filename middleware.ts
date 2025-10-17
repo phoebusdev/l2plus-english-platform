@@ -8,6 +8,7 @@ import { authConfig } from '@/lib/auth/config'
 export default NextAuth(authConfig).auth
 
 // Matcher configuration
+// Note: /login and /register are NOT in matcher - they handle their own auth redirects
 export const config = {
   matcher: [
     '/dashboard/:path*',
@@ -15,7 +16,5 @@ export const config = {
     '/classes/:path*',
     '/materials/:path*',
     '/admin/:path*',
-    '/login',
-    '/register',
   ],
 }
