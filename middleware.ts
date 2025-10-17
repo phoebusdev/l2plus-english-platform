@@ -15,5 +15,7 @@ export const config = {
     '/classes/:path*',
     '/materials/:path*',
     '/admin/:path*',
+    '/login',
+    '/register',
   ],
 }
