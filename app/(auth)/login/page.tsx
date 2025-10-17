@@ -19,19 +19,18 @@ function LoginForm() {
   const [error, setError] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [hasRedirected, setHasRedirected] = useState(false)
 
   const registered = searchParams.get('registered') === 'true'
 
-  // Redirect authenticated users
+  // Redirect authenticated users (only once)
   useEffect(() => {
-    if (status === 'authenticated' && session?.user) {
-      if (session.user.role === 'admin') {
-        window.location.href = '/admin/dashboard'
-      } else {
-        window.location.href = '/dashboard'
-      }
+    if (status === 'authenticated' && session?.user && !hasRedirected) {
+      setHasRedirected(true)
+      const targetUrl = session.user.role === 'admin' ? '/admin/dashboard' : '/dashboard'
+      router.push(targetUrl)
     }
-  }, [session, status])
+  }, [session, status, hasRedirected, router])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -51,12 +50,23 @@ function LoginForm() {
         return
       }
 
-      // Success - reload page to trigger useEffect redirect based on role
+      // Success - reload to get fresh session
       window.location.reload()
     } catch (err: any) {
       setError('An error occurred during login')
       setIsLoading(false)
     }
+  }
+
+  // Show loading state if already authenticated and redirecting
+  if (status === 'authenticated') {
+    return (
+      <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <div className="text-center">
+          <p className="text-white text-lg">Redirecting...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
