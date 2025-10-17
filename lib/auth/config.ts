@@ -27,7 +27,7 @@ export const authConfig = {
       // Redirect authenticated users away from auth pages
       if (isAuthRoute && isLoggedIn) {
         if (isAdmin) {
-          return Response.redirect(new URL('/admin', nextUrl))
+          return Response.redirect(new URL('/admin/dashboard', nextUrl))
         }
         return Response.redirect(new URL('/dashboard', nextUrl))
       }
