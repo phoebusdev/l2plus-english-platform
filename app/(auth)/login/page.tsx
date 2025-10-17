@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, Suspense, useEffect } from 'react'
+import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { signIn, useSession, getSession } from 'next-auth/react'
+import { signIn, getSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -14,25 +14,12 @@ import { GraduationCap, LogIn } from 'lucide-react'
 function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const { data: session, status } = useSession()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [hasRedirected, setHasRedirected] = useState(false)
 
   const registered = searchParams.get('registered') === 'true'
-
-  // Redirect authenticated users (only once)
-  useEffect(() => {
-    if (status === 'authenticated' && session?.user && !hasRedirected) {
-      setHasRedirected(true)
-      console.log('Login redirect - User role:', session.user.role)
-      const targetUrl = session.user.role === 'admin' ? '/admin/dashboard' : '/dashboard'
-      console.log('Redirecting to:', targetUrl)
-      router.push(targetUrl)
-    }
-  }, [session, status, hasRedirected, router])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -69,17 +56,6 @@ function LoginForm() {
       setError('An error occurred during login')
       setIsLoading(false)
     }
-  }
-
-  // Show loading state if already authenticated and redirecting
-  if (status === 'authenticated') {
-    return (
-      <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-        <div className="text-center">
-          <p className="text-white text-lg">Redirecting...</p>
-        </div>
-      </div>
-    )
   }
 
   return (
