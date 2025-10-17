@@ -3,7 +3,7 @@
 import { useState, Suspense, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { signIn, useSession } from 'next-auth/react'
+import { signIn, useSession, getSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -27,7 +27,9 @@ function LoginForm() {
   useEffect(() => {
     if (status === 'authenticated' && session?.user && !hasRedirected) {
       setHasRedirected(true)
+      console.log('Login redirect - User role:', session.user.role)
       const targetUrl = session.user.role === 'admin' ? '/admin/dashboard' : '/dashboard'
+      console.log('Redirecting to:', targetUrl)
       router.push(targetUrl)
     }
   }, [session, status, hasRedirected, router])
@@ -50,9 +52,20 @@ function LoginForm() {
         return
       }
 
-      // Success - reload to get fresh session
-      window.location.reload()
+      // Success - fetch updated session and redirect based on role
+      const updatedSession = await getSession()
+      console.log('After login - session:', updatedSession)
+
+      if (updatedSession?.user) {
+        const targetUrl = updatedSession.user.role === 'admin' ? '/admin/dashboard' : '/dashboard'
+        console.log('Redirecting to:', targetUrl, 'for role:', updatedSession.user.role)
+        window.location.href = targetUrl
+      } else {
+        // Fallback if session not immediately available
+        window.location.reload()
+      }
     } catch (err: any) {
+      console.error('Login error:', err)
       setError('An error occurred during login')
       setIsLoading(false)
     }
