@@ -6,6 +6,10 @@ import {
   placementTests,
   homepageContent,
   aboutUsContent,
+  classSessions,
+  enrollments,
+  testResults,
+  payments,
 } from './schema'
 import { hash } from '@node-rs/argon2'
 
@@ -323,10 +327,130 @@ async function seed() {
 
     console.log('✓ Created about us content')
 
+    // 6. Create demo student
+    console.log('Creating demo student...')
+    const studentPasswordHash = await hash('Student123!', {
+      memoryCost: 19456,
+      timeCost: 2,
+      outputLen: 32,
+      parallelism: 1,
+    })
+
+    const [demoUser] = await db
+      .insert(users)
+      .values({
+        email: 'student@demo.com',
+        passwordHash: studentPasswordHash,
+        fullName: 'Demo Student',
+        phone: '+44 20 9876 5432',
+        timezone: 'Europe/London',
+        role: 'student',
+        emailVerified: true,
+      })
+      .returning()
+
+    await db.insert(students).values({
+      id: demoUser.id,
+      selfReportedLevel: 'B1',
+      assignedCefrLevel: 'B2',
+      paymentStatus: 'active',
+      stripeCustomerId: 'cus_demo_student',
+    })
+
+    console.log('✓ Demo student created:', demoUser.email)
+
+    // 7. Create demo payment for student
+    console.log('Creating demo payment...')
+    await db.insert(payments).values({
+      studentId: demoUser.id,
+      planId: plans[1].id, // Standard plan
+      stripeCustomerId: 'cus_demo_student',
+      stripeSubscriptionId: 'sub_demo_subscription',
+      status: 'active',
+      currentPeriodStart: new Date(),
+      currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+    })
+
+    console.log('✓ Demo payment created')
+
+    // 8. Create demo test result
+    console.log('Creating demo test result...')
+    await db.insert(testResults).values({
+      studentId: demoUser.id,
+      testId: test.id,
+      answers: Array.from({ length: 20 }, (_, i) => ({
+        questionId: i + 1,
+        selectedAnswer: i < 15 ? 'A' : 'B', // 15/20 correct = 75% = B2
+      })),
+      score: 15,
+      percentage: 75,
+      assignedLevel: 'B2',
+    })
+
+    console.log('✓ Demo test result created')
+
+    // 9. Create demo classes
+    console.log('Creating demo classes...')
+    const now = new Date()
+    const tomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000)
+    const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
+
+    const demoClasses = await db
+      .insert(classSessions)
+      .values([
+        {
+          dateTime: tomorrow,
+          cefrLevel: 'B2',
+          zoomUrl: 'https://zoom.us/j/demo123456',
+          capacity: 10,
+          enrollmentCount: 1,
+          instructorName: 'Sarah Johnson',
+          createdBy: admin.id,
+        },
+        {
+          dateTime: nextWeek,
+          cefrLevel: 'B2',
+          zoomUrl: 'https://zoom.us/j/demo789012',
+          capacity: 10,
+          enrollmentCount: 1,
+          instructorName: 'Michael Chen',
+          createdBy: admin.id,
+        },
+        {
+          dateTime: new Date(nextWeek.getTime() + 3 * 24 * 60 * 60 * 1000),
+          cefrLevel: 'B1',
+          zoomUrl: 'https://zoom.us/j/demo345678',
+          capacity: 10,
+          enrollmentCount: 0,
+          instructorName: 'Sarah Johnson',
+          createdBy: admin.id,
+        },
+      ])
+      .returning()
+
+    console.log(`✓ Created ${demoClasses.length} demo classes`)
+
+    // 10. Enroll demo student in classes
+    console.log('Creating demo enrollments...')
+    await db.insert(enrollments).values([
+      {
+        studentId: demoUser.id,
+        classSessionId: demoClasses[0].id,
+        attended: false,
+      },
+      {
+        studentId: demoUser.id,
+        classSessionId: demoClasses[1].id,
+        attended: false,
+      },
+    ])
+
+    console.log('✓ Demo student enrolled in 2 classes')
+
     console.log('\n✅ Database seeded successfully!')
-    console.log('\nAdmin credentials:')
-    console.log('Email: admin@l2plusenglish.com')
-    console.log('Password: Admin123!')
+    console.log('\nCredentials:')
+    console.log('Admin: admin@l2plusenglish.com / Admin123!')
+    console.log('Demo Student: student@demo.com / Student123!')
   } catch (error) {
     console.error('❌ Seed failed:', error)
     throw error
