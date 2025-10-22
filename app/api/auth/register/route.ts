@@ -30,24 +30,28 @@ export async function POST(request: NextRequest) {
     // Hash password
     const passwordHash = await hashPassword(password)
 
-    // Create user and student in a transaction
-    const [user] = await db
-      .insert(users)
-      .values({
-        email,
-        passwordHash,
-        fullName,
-        phone,
-        timezone,
-        role: 'student',
-        emailVerified: false,
-      })
-      .returning()
+    // Create user and student in a transaction to ensure atomicity
+    const user = await db.transaction(async (tx) => {
+      const [newUser] = await tx
+        .insert(users)
+        .values({
+          email,
+          passwordHash,
+          fullName,
+          phone,
+          timezone,
+          role: 'student',
+          emailVerified: false,
+        })
+        .returning()
 
-    await db.insert(students).values({
-      id: user.id, // Same ID as user (one-to-one relationship)
-      selfReportedLevel: selfReportedLevel as any || null,
-      paymentStatus: 'none',
+      await tx.insert(students).values({
+        id: newUser.id, // Same ID as user (one-to-one relationship)
+        selfReportedLevel: selfReportedLevel as any || null,
+        paymentStatus: 'none',
+      })
+
+      return newUser
     })
 
     // TODO: Send registration confirmation email (Phase 3 - Email system)

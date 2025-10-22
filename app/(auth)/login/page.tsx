@@ -3,7 +3,7 @@
 import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { signIn, getSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -40,7 +40,8 @@ function LoginForm() {
       }
 
       // Success - redirect to main dashboard which will route based on role
-      window.location.href = '/dashboard'
+      router.push('/dashboard')
+      router.refresh() // Refresh server components to get new session
     } catch (err: any) {
       console.error('Login error:', err)
       setError('An error occurred during login')
